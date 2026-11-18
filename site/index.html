@@ -116,7 +116,12 @@
     font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
   .chip[aria-pressed="true"] { background: var(--sea); border-color: var(--sea); color: var(--surface); }
   .after { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14px; }
-  .after select { height: 36px; padding: 0 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); font: inherit; font-size: 14px; }
+  .after select { height: 36px; padding: 0 36px 0 12px; border-radius: 10px; border: 1px solid var(--line); color: var(--ink); font: inherit; font-size: 14px;
+    -webkit-appearance: none; appearance: none; cursor: pointer;
+    background: var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%235f6f78' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 14px center / 11px 8px; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .after select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%2398a8b1' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+  }
   .rules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 14px 0; }
   .rules div { background: var(--sea-soft); border-radius: 12px; padding: 12px; }
   .rules strong { display: block; font-size: 22px; letter-spacing: -0.02em; }
