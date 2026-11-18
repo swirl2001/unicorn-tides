@@ -148,7 +148,7 @@ def build():
             saturdays.append(info)
         elif tier == 'unicorn':
             info['why'] = ('after dark' if before_sunset < 0 else 'right at sunset' if t.hour >= EARLIEST
-                           else 'too early in the morning')
+                           else 'before sunrise' if t < rise else 'a morning low, not afternoon')
             misses.append(info)
 
     # Afternoon tide curves for the next few qualifying Saturdays (noon to an hour after sunset)

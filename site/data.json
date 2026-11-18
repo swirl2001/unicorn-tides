@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-18T10:32:35.910188-08:00",
- "generated_local": "Wed Nov 18, 10:32 AM",
+ "generated": "2026-11-18T10:33:25.392897-08:00",
+ "generated_local": "Wed Nov 18, 10:33 AM",
  "horizon": "Nov 18, 2030",
  "rule": {
   "unicorn_ft": -1.0,
@@ -803,7 +803,7 @@
    "sunset_h": 20.57,
    "minutes_before_sunset": 934,
    "days_away": 227,
-   "why": "too early in the morning"
+   "why": "before sunrise"
   },
   {
    "date": "2027-07-31",
@@ -817,7 +817,7 @@
    "sunset_h": 20.33,
    "minutes_before_sunset": 984,
    "days_away": 255,
-   "why": "too early in the morning"
+   "why": "before sunrise"
   },
   {
    "date": "2027-10-30",
@@ -845,7 +845,7 @@
    "sunset_h": 20.43,
    "minutes_before_sunset": 885,
    "days_away": 612,
-   "why": "too early in the morning"
+   "why": "before sunrise"
   },
   {
    "date": "2028-11-18",
@@ -887,7 +887,7 @@
    "sunset_h": 19.92,
    "minutes_before_sunset": 877,
    "days_away": 892,
-   "why": "too early in the morning"
+   "why": "before sunrise"
   },
   {
    "date": "2029-05-26",
@@ -901,7 +901,7 @@
    "sunset_h": 20.32,
    "minutes_before_sunset": 955,
    "days_away": 920,
-   "why": "too early in the morning"
+   "why": "before sunrise"
   },
   {
    "date": "2029-06-23",
@@ -915,7 +915,7 @@
    "sunset_h": 20.55,
    "minutes_before_sunset": 1030,
    "days_away": 948,
-   "why": "too early in the morning"
+   "why": "before sunrise"
   },
   {
    "date": "2029-12-08",
@@ -957,7 +957,7 @@
    "sunset_h": 19.8,
    "minutes_before_sunset": 754,
    "days_away": 1249,
-   "why": "too early in the morning"
+   "why": "a morning low, not afternoon"
   },
   {
    "date": "2030-06-15",
@@ -971,7 +971,7 @@
    "sunset_h": 20.52,
    "minutes_before_sunset": 922,
    "days_away": 1305,
-   "why": "too early in the morning"
+   "why": "before sunrise"
   },
   {
    "date": "2030-07-13",
@@ -985,7 +985,7 @@
    "sunset_h": 20.52,
    "minutes_before_sunset": 982,
    "days_away": 1333,
-   "why": "too early in the morning"
+   "why": "before sunrise"
   }
  ],
  "summer": [
