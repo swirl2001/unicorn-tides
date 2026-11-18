@@ -190,7 +190,7 @@
       <ul>
         <li>Sunrise and sunset are worked out for the reef with NOAA's solar formula, accurate to a couple of minutes.</li>
         <li>A low only counts if it's at noon or later and at least 30 minutes before sunset. With an afternoon low you get about 3 hours of light on the falling tide, plus a little at the bottom.</li>
-        <li><b>Head out</b> is 2 hours before the low, when the reef starts opening up.</li>
+        <li><b>Leave SF</b> is timed so you reach the beach just as the falling tide drops below 0 ft: about 1 hour to drive from San Francisco to the Ritz-Carlton, then 20 minutes down to the beach. That gives you the whole minus tide, usually about an hour and a half before the low.</li>
       </ul>
       <h3>What the forecast can't see</h3>
       <ul>
@@ -214,6 +214,7 @@
   const ICON = {
     low: svg('<path d="M8 2.5v9"/><path d="M4.5 8.5L8 12l3.5-3.5"/><path d="M2 14h12"/>'),
     sunset: svg('<path d="M3 12a5 5 0 0 1 10 0"/><path d="M1.5 14h13"/><path d="M8 3.5v2"/><path d="M3 6l1.3 1.3"/><path d="M13 6l-1.3 1.3"/>'),
+    car: svg('<path d="M2.5 10.5V8.2l1.4-3.4A1.5 1.5 0 0 1 5.3 3.8h5.4a1.5 1.5 0 0 1 1.4 1l1.4 3.4v2.3z"/><path d="M2.5 8.2h11"/><circle cx="5" cy="12" r="1.2"/><circle cx="11" cy="12" r="1.2"/>'),
     boot: svg('<path d="M5 2.5h4v6.5l4 2v2.5H3v-11z"/><path d="M3 11.5h10"/>'),
   };
   const sign = (v) => (v < 0 ? `−${Math.abs(v).toFixed(2)}` : v.toFixed(2));
@@ -257,7 +258,7 @@
         if (next.days_away <= 7) hero.classList.add('go');
         document.getElementById('hero-title').innerHTML = `Next up: ${next.label} <span class="badge ${next.tier}">${tierName(next.tier)}</span>`;
         document.getElementById('hero-text').innerHTML =
-          `Low of <b>${sign(next.low_ft)} ft at ${next.low_time}</b>, sunset ${next.sunset}. Head out around ${next.head_out}.`;
+          `Low of <b>${sign(next.low_ft)} ft at ${next.low_time}</b>, sunset ${next.sunset}.<br><b>Leave SF by ${next.leave_sf}</b>. Park at the Ritz-Carlton by ${next.at_ritz} and reach the beach at ${next.below_zero}, as the tide drops below 0 ft.`;
         if (nextUnicorn && nextUnicorn !== next)
           document.getElementById('hero-next').innerHTML = `Next full unicorn: <b>${nextUnicorn.label}</b>, ${sign(nextUnicorn.low_ft)} ft at ${nextUnicorn.low_time}.`;
       } else {
@@ -274,7 +275,7 @@
             <div class="facts">
               <span title="Low tide">${ICON.low}Low <b>${s.low_time}</b></span>
               <span title="Sunset">${ICON.sunset}Sunset <b>${s.sunset}</b></span>
-              <span title="When to head out">${ICON.boot}Head out ${s.head_out}</span>
+              <span title="Leave San Francisco by this time to reach the beach as the tide drops below 0 ft (${s.below_zero})">${ICON.car}Leave SF <b>${s.leave_sf}</b></span>
               <span class="away">${away(s.days_away)}</span>
             </div>
           </div>

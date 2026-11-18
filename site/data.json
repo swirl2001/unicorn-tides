@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-17T22:58:15.480461-08:00",
- "generated_local": "Tue Nov 17, 10:58 PM",
+ "generated": "2026-11-18T09:53:15.125308-08:00",
+ "generated_local": "Wed Nov 18, 9:53 AM",
  "rule": {
   "unicorn_ft": -1.0,
   "almost_ft": -0.75,
@@ -20,8 +20,7 @@
    "sunset": "5:53 pm",
    "sunset_h": 17.88,
    "minutes_before_sunset": 88,
-   "days_away": 95,
-   "head_out": "2:25 pm",
+   "days_away": 94,
    "curve": [
     [
      11.0,
@@ -91,7 +90,11 @@
      19.0,
      1.4
     ]
-   ]
+   ],
+   "below_zero": "2:55 pm",
+   "below_zero_h": 14.92,
+   "at_ritz": "2:35 pm",
+   "leave_sf": "1:35 pm"
   },
   {
    "date": "2027-11-13",
@@ -104,8 +107,7 @@
    "sunset": "5:02 pm",
    "sunset_h": 17.03,
    "minutes_before_sunset": 51,
-   "days_away": 361,
-   "head_out": "2:11 pm",
+   "days_away": 360,
    "curve": [
     [
      11.0,
@@ -171,7 +173,11 @@
      18.5,
      0.71
     ]
-   ]
+   ],
+   "below_zero": "2:36 pm",
+   "below_zero_h": 14.6,
+   "at_ritz": "2:16 pm",
+   "leave_sf": "1:16 pm"
   },
   {
    "date": "2027-11-27",
@@ -184,8 +190,7 @@
    "sunset": "4:54 pm",
    "sunset_h": 16.9,
    "minutes_before_sunset": 33,
-   "days_away": 375,
-   "head_out": "2:21 pm",
+   "days_away": 374,
    "curve": [
     [
      11.0,
@@ -247,7 +252,11 @@
      18.0,
      -0.33
     ]
-   ]
+   ],
+   "below_zero": "2:27 pm",
+   "below_zero_h": 14.45,
+   "at_ritz": "2:07 pm",
+   "leave_sf": "1:07 pm"
   },
   {
    "date": "2027-12-11",
@@ -260,8 +269,7 @@
    "sunset": "4:52 pm",
    "sunset_h": 16.87,
    "minutes_before_sunset": 97,
-   "days_away": 389,
-   "head_out": "1:15 pm",
+   "days_away": 388,
    "curve": [
     [
      11.0,
@@ -323,7 +331,11 @@
      18.0,
      1.13
     ]
-   ]
+   ],
+   "below_zero": "1:37 pm",
+   "below_zero_h": 13.62,
+   "at_ritz": "1:17 pm",
+   "leave_sf": "12:17 pm"
   },
   {
    "date": "2027-12-25",
@@ -336,8 +348,7 @@
    "sunset": "4:56 pm",
    "sunset_h": 16.93,
    "minutes_before_sunset": 87,
-   "days_away": 403,
-   "head_out": "1:30 pm",
+   "days_away": 402,
    "curve": [
     [
      11.0,
@@ -399,7 +410,11 @@
      18.0,
      0.71
     ]
-   ]
+   ],
+   "below_zero": "1:45 pm",
+   "below_zero_h": 13.75,
+   "at_ritz": "1:25 pm",
+   "leave_sf": "12:25 pm"
   },
   {
    "date": "2028-12-30",
@@ -412,8 +427,7 @@
    "sunset": "5 pm",
    "sunset_h": 17.0,
    "minutes_before_sunset": 49,
-   "days_away": 774,
-   "head_out": "2:12 pm",
+   "days_away": 773,
    "curve": [
     [
      11.0,
@@ -479,7 +493,11 @@
      18.5,
      0.53
     ]
-   ]
+   ],
+   "below_zero": "2:25 pm",
+   "below_zero_h": 14.42,
+   "at_ritz": "2:05 pm",
+   "leave_sf": "1:05 pm"
   },
   {
    "date": "2029-01-13",
@@ -492,8 +510,7 @@
    "sunset": "5:11 pm",
    "sunset_h": 17.18,
    "minutes_before_sunset": 60,
-   "days_away": 788,
-   "head_out": "2:12 pm",
+   "days_away": 787,
    "curve": [
     [
      11.0,
@@ -559,7 +576,11 @@
      18.5,
      0.56
     ]
-   ]
+   ],
+   "below_zero": "2:26 pm",
+   "below_zero_h": 14.43,
+   "at_ritz": "2:06 pm",
+   "leave_sf": "1:06 pm"
   },
   {
    "date": "2030-02-02",
@@ -572,8 +593,7 @@
    "sunset": "5:33 pm",
    "sunset_h": 17.55,
    "minutes_before_sunset": 48,
-   "days_away": 1173,
-   "head_out": "2:45 pm",
+   "days_away": 1172,
    "curve": [
     [
      11.0,
@@ -643,7 +663,11 @@
      19.0,
      0.91
     ]
-   ]
+   ],
+   "below_zero": "3:17 pm",
+   "below_zero_h": 15.28,
+   "at_ritz": "2:57 pm",
+   "leave_sf": "1:57 pm"
   },
   {
    "date": "2030-10-26",
@@ -656,8 +680,7 @@
    "sunset": "6:19 pm",
    "sunset_h": 18.32,
    "minutes_before_sunset": 71,
-   "days_away": 1439,
-   "head_out": "3:09 pm",
+   "days_away": 1438,
    "curve": [
     [
      11.0,
@@ -731,7 +754,11 @@
      19.5,
      0.87
     ]
-   ]
+   ],
+   "below_zero": "3:35 pm",
+   "below_zero_h": 15.58,
+   "at_ritz": "3:15 pm",
+   "leave_sf": "2:15 pm"
   },
   {
    "date": "2030-11-23",
@@ -744,8 +771,7 @@
    "sunset": "4:55 pm",
    "sunset_h": 16.92,
    "minutes_before_sunset": 105,
-   "days_away": 1467,
-   "head_out": "1:11 pm",
+   "days_away": 1466,
    "curve": [
     [
      11.0,
@@ -807,7 +833,11 @@
      18.0,
      1.28
     ]
-   ]
+   ],
+   "below_zero": "1:27 pm",
+   "below_zero_h": 13.45,
+   "at_ritz": "1:07 pm",
+   "leave_sf": "12:07 pm"
   }
  ],
  "misses": [
@@ -822,7 +852,7 @@
    "sunset": "4:57 pm",
    "sunset_h": 16.95,
    "minutes_before_sunset": -108,
-   "days_away": 39,
+   "days_away": 38,
    "why": "after dark"
   },
   {
@@ -836,7 +866,7 @@
    "sunset": "5:22 pm",
    "sunset_h": 17.37,
    "minutes_before_sunset": -12,
-   "days_away": 67,
+   "days_away": 66,
    "why": "after dark"
   },
   {
@@ -850,7 +880,7 @@
    "sunset": "8:04 pm",
    "sunset_h": 20.07,
    "minutes_before_sunset": 784,
-   "days_away": 172,
+   "days_away": 171,
    "why": "too early in the morning"
   },
   {
@@ -864,7 +894,7 @@
    "sunset": "8:26 pm",
    "sunset_h": 20.43,
    "minutes_before_sunset": 865,
-   "days_away": 200,
+   "days_away": 199,
    "why": "too early in the morning"
   },
   {
@@ -878,7 +908,7 @@
    "sunset": "8:34 pm",
    "sunset_h": 20.57,
    "minutes_before_sunset": 934,
-   "days_away": 228,
+   "days_away": 227,
    "why": "too early in the morning"
   },
   {
@@ -892,7 +922,7 @@
    "sunset": "8:20 pm",
    "sunset_h": 20.33,
    "minutes_before_sunset": 984,
-   "days_away": 256,
+   "days_away": 255,
    "why": "too early in the morning"
   },
   {
@@ -906,7 +936,7 @@
    "sunset": "6:15 pm",
    "sunset_h": 18.25,
    "minutes_before_sunset": 0,
-   "days_away": 347,
+   "days_away": 346,
    "why": "right at sunset"
   }
  ]
