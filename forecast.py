@@ -30,7 +30,7 @@ SUNSET_BUFFER_MIN = 30             # low at least this long before sunset
 YEARS_AHEAD = 4
 DRIVE_MIN = 60                     # San Francisco to the Ritz-Carlton parking
 WALK_MIN = 20                      # Ritz-Carlton down to the beach
-SUMMER_AFTER_SUNRISE_MIN = 30      # summer lows: at least this long after sunrise
+SUMMER_AFTER_SUNRISE_MIN = 0       # summer lows: any time after sunrise
 SUMMER_COUNT = 4                   # lowest N daylight lows per summer
 SUMMER_ARRIVE_BEFORE_LOW_MIN = 60  # summer: on the beach an hour before the low (tide is already negative by then)
 UA = {'User-Agent': '(unicorn-tides alert, personal project)'}
@@ -155,11 +155,12 @@ def build():
                       if 11 <= hours(t) <= s['sunset_h'] + 1.5 and t.minute % 30 == 0]
         add_travel(s, pts)
 
+    summer = summer_lows(today)
     return dict(
         generated=now.isoformat(), generated_local=now.strftime('%a %b %-d, %-I:%M %p'),
         rule=dict(unicorn_ft=UNICORN_FT, almost_ft=ALMOST_FT, earliest=EARLIEST,
                   sunset_buffer_min=SUNSET_BUFFER_MIN, station=STATION),
-        saturdays=saturdays, misses=misses, summer=summer_lows(today),
+        saturdays=saturdays, misses=[m for m in misses if m['date'] not in {x['date'] for x in summer}], summer=summer,
     )
 
 
