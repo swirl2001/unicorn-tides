@@ -18,12 +18,13 @@
     --star: #e0673f;         /* sea star */
     --star-soft: #fbe3d8;
     --night: #c9cfd6;
+    --on-star: #fff;         /* text on the coral badge */
     --radius: 16px;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       --bg: #10171c; --surface: #172229; --ink: #e8eef1; --muted: #98a8b1; --line: #24343d;
-      --sea: #5cc0c6; --sea-soft: #173a3d; --star: #f2875f; --star-soft: #3d241b; --night: #2b3a44;
+      --sea: #5cc0c6; --sea-soft: #173a3d; --star: #f2875f; --star-soft: #3d241b; --night: #2b3a44; --on-star: #10171c;
     }
   }
   * { box-sizing: border-box; }
@@ -58,7 +59,7 @@
 
   .badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
     padding: 2px 8px; border-radius: 99px; vertical-align: middle; white-space: nowrap; }
-  .badge.unicorn { background: var(--star); color: #fff; }
+  .badge.unicorn { background: var(--star); color: var(--on-star); }
   .badge.almost { background: var(--sea-soft); color: var(--sea); }
 
   section { margin-top: 40px; }
