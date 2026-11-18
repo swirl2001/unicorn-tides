@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-18T10:02:46.924748-08:00",
- "generated_local": "Wed Nov 18, 10:02 AM",
+ "generated": "2026-11-18T10:12:16.385566-08:00",
+ "generated_local": "Wed Nov 18, 10:12 AM",
  "rule": {
   "unicorn_ft": -1.0,
   "almost_ft": -0.75,
@@ -956,6 +956,34 @@
    "leave_sf": "4:47 am"
   },
   {
+   "date": "2027-05-09",
+   "label": "Sun May 9, 2027",
+   "summer": 2027,
+   "low_ft": -1.4,
+   "low_time": "7:50 am",
+   "low_h": 7.83,
+   "sunrise": "6:06 am",
+   "days_away": 172,
+   "below_zero": "6:50 am",
+   "below_zero_h": 6.83,
+   "at_ritz": "6:30 am",
+   "leave_sf": "5:30 am"
+  },
+  {
+   "date": "2027-05-22",
+   "label": "Sat May 22, 2027",
+   "summer": 2027,
+   "low_ft": -0.96,
+   "low_time": "7:01 am",
+   "low_h": 7.02,
+   "sunrise": "5:55 am",
+   "days_away": 185,
+   "below_zero": "6:01 am",
+   "below_zero_h": 6.02,
+   "at_ritz": "5:41 am",
+   "leave_sf": "4:41 am"
+  },
+  {
    "date": "2027-06-06",
    "label": "Sun Jun 6, 2027",
    "summer": 2027,
@@ -970,74 +998,32 @@
    "leave_sf": "4:29 am"
   },
   {
-   "date": "2027-06-07",
-   "label": "Mon Jun 7, 2027",
-   "summer": 2027,
-   "low_ft": -1.68,
-   "low_time": "7:38 am",
-   "low_h": 7.63,
-   "sunrise": "5:48 am",
-   "days_away": 201,
-   "below_zero": "6:38 am",
-   "below_zero_h": 6.63,
-   "at_ritz": "6:18 am",
-   "leave_sf": "5:18 am"
-  },
-  {
-   "date": "2027-07-05",
-   "label": "Mon Jul 5, 2027",
-   "summer": 2027,
-   "low_ft": -1.73,
-   "low_time": "6:33 am",
-   "low_h": 6.55,
-   "sunrise": "5:53 am",
-   "days_away": 229,
-   "below_zero": "5:53 am",
-   "below_zero_h": 5.88,
-   "at_ritz": "5:33 am",
-   "leave_sf": "4:33 am"
-  },
-  {
-   "date": "2028-05-10",
-   "label": "Wed May 10, 2028",
+   "date": "2028-05-27",
+   "label": "Sat May 27, 2028",
    "summer": 2028,
-   "low_ft": -1.47,
-   "low_time": "6:44 am",
-   "low_h": 6.73,
-   "sunrise": "6:04 am",
-   "days_away": 539,
-   "below_zero": "6:04 am",
-   "below_zero_h": 6.07,
-   "at_ritz": "5:44 am",
-   "leave_sf": "4:44 am"
-  },
-  {
-   "date": "2028-05-26",
-   "label": "Fri May 26, 2028",
-   "summer": 2028,
-   "low_ft": -1.31,
-   "low_time": "7:06 am",
-   "low_h": 7.1,
+   "low_ft": -1.21,
+   "low_time": "7:50 am",
+   "low_h": 7.83,
    "sunrise": "5:52 am",
-   "days_away": 555,
-   "below_zero": "6:06 am",
-   "below_zero_h": 6.1,
-   "at_ritz": "5:46 am",
-   "leave_sf": "4:46 am"
+   "days_away": 556,
+   "below_zero": "6:50 am",
+   "below_zero_h": 6.83,
+   "at_ritz": "6:30 am",
+   "leave_sf": "5:30 am"
   },
   {
-   "date": "2028-06-08",
-   "label": "Thu Jun 8, 2028",
+   "date": "2028-05-28",
+   "label": "Sun May 28, 2028",
    "summer": 2028,
-   "low_ft": -1.38,
-   "low_time": "6:30 am",
-   "low_h": 6.5,
-   "sunrise": "5:48 am",
-   "days_away": 568,
-   "below_zero": "5:48 am",
-   "below_zero_h": 5.8,
-   "at_ritz": "5:28 am",
-   "leave_sf": "4:28 am"
+   "low_ft": -0.97,
+   "low_time": "8:36 am",
+   "low_h": 8.6,
+   "sunrise": "5:51 am",
+   "days_away": 557,
+   "below_zero": "7:36 am",
+   "below_zero_h": 7.6,
+   "at_ritz": "7:16 am",
+   "leave_sf": "6:16 am"
   },
   {
    "date": "2028-06-24",
@@ -1052,6 +1038,20 @@
    "below_zero_h": 5.82,
    "at_ritz": "5:29 am",
    "leave_sf": "4:29 am"
+  },
+  {
+   "date": "2028-06-25",
+   "label": "Sun Jun 25, 2028",
+   "summer": 2028,
+   "low_ft": -1.22,
+   "low_time": "7:30 am",
+   "low_h": 7.5,
+   "sunrise": "5:49 am",
+   "days_away": 585,
+   "below_zero": "6:30 am",
+   "below_zero_h": 6.5,
+   "at_ritz": "6:10 am",
+   "leave_sf": "5:10 am"
   }
  ]
 }
