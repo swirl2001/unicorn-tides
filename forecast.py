@@ -27,7 +27,7 @@ UNICORN_FT = -1.0
 ALMOST_FT = -0.75
 EARLIEST = 12                      # low tide at noon or later
 SUNSET_BUFFER_MIN = 30             # low at least this long before sunset
-YEARS_AHEAD = 4
+YEARS_AHEAD = 4                    # rolling window: everything from today to 4 years from today
 DRIVE_MIN = 60                     # San Francisco to the Ritz-Carlton parking
 WALK_MIN = 20                      # Ritz-Carlton down to the beach
 SUMMER_AFTER_SUNRISE_MIN = 0       # summer lows: any time after sunrise
@@ -101,10 +101,13 @@ def summer_lows(today):
     at least SUMMER_AFTER_SUNRISE_MIN after sunrise. For seaweed foraging and poke poling."""
     out = []
     year = today.year if today < date(today.year, 8, 31) else today.year + 1
-    for y in range(year, today.year + YEARS_AHEAD + 1):   # through the same year as the Saturday list
+    horizon = date(today.year + YEARS_AHEAD, today.month, min(today.day, 28))
+    for y in range(year, horizon.year + 1):
+        if date(y, 5, 1) > horizon:
+            break
         start = max(date(y, 5, 1), today)
         cands = []
-        for t, v, kind in predictions(start, date(y, 8, 31), 'hilo'):
+        for t, v, kind in predictions(start, min(date(y, 8, 31), horizon), 'hilo'):
             rise, sset = sun(t.date())
             if kind == 'L' and v < 0 and t.weekday() == 5 and rise + timedelta(minutes=SUMMER_AFTER_SUNRISE_MIN) <= t <= sset:
                 cands.append((v, t, rise))
@@ -124,12 +127,13 @@ def build():
     now = datetime.now(PT)
     today = now.date()
     lows = []
-    for y in range(today.year, today.year + YEARS_AHEAD + 1):
+    horizon = date(today.year + YEARS_AHEAD, today.month, min(today.day, 28))
+    for y in range(today.year, horizon.year + 1):
         lows += [(t, v) for t, v, kind in predictions(date(y, 1, 1), date(y, 12, 31), 'hilo') if kind == 'L']
 
     saturdays, misses = [], []
     for t, v in lows:
-        if t.date() < today or t.weekday() != 5 or v > ALMOST_FT:
+        if t.date() < today or t.date() > horizon or t.weekday() != 5 or v > ALMOST_FT:
             continue
         rise, sset = sun(t.date())
         before_sunset = (sset - t).total_seconds() / 60
@@ -142,7 +146,7 @@ def build():
                     days_away=(t.date() - today).days)
         if ok:
             saturdays.append(info)
-        elif tier == 'unicorn' and (t.date() - today).days <= 400:
+        elif tier == 'unicorn':
             info['why'] = ('after dark' if before_sunset < 0 else 'right at sunset' if t.hour >= EARLIEST
                            else 'too early in the morning')
             misses.append(info)
@@ -158,6 +162,7 @@ def build():
     summer = summer_lows(today)
     return dict(
         generated=now.isoformat(), generated_local=now.strftime('%a %b %-d, %-I:%M %p'),
+        horizon=date(today.year + YEARS_AHEAD, today.month, min(today.day, 28)).strftime('%b %-d, %Y'),
         rule=dict(unicorn_ft=UNICORN_FT, almost_ft=ALMOST_FT, earliest=EARLIEST,
                   sunset_buffer_min=SUNSET_BUFFER_MIN, station=STATION),
         saturdays=saturdays, misses=[m for m in misses if m['date'] not in {x['date'] for x in summer}], summer=summer,

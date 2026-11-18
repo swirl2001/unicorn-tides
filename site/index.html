@@ -197,7 +197,7 @@
       <ul>
         <li><b>NOAA tide predictions</b> for Pillar Point Harbor (station 9414131), the tide station closest to the Half Moon Bay tide pools. Tides along this stretch of coast arrive within minutes of each other.</li>
         <li>Heights are in feet above <b>mean lower low water</b> (MLLW), the average of each day's lower low tide. A minus tide drops below that, exposing reef that's usually underwater.</li>
-        <li>Tides follow the moon and sun, so predictions are reliable years ahead. That's why this page can list Saturdays into 2030.</li>
+        <li>Tides follow the moon and sun, so predictions are reliable years ahead. That's why this page always looks 4 years ahead: every list runs from today to the same date 4 years out, and it rolls forward each day.</li>
       </ul>
       <h3>Daylight</h3>
       <ul>
@@ -340,7 +340,7 @@
           `<li><b>${m.label}</b><span>${sign(m.low_ft)} ft at ${m.low_time}</span><span class="why">${m.why}${m.why === 'after dark' || m.why === 'right at sunset' ? ` (sunset ${m.sunset})` : ` (sunrise ${m.sunrise})`}</span></li>`).join('');
         document.getElementById('misses-section').hidden = false;
       }
-      document.getElementById('updated').textContent = `Updated ${data.generated_local} Pacific. Checks run every morning.`;
+      document.getElementById('updated').textContent = `Updated ${data.generated_local} Pacific. Showing tides through ${data.horizon}. Checks run every morning.`;
     })
     .catch(() => { document.getElementById('hero-title').textContent = "Couldn't load the tides"; });
 </script>
