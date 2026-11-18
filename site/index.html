@@ -150,7 +150,7 @@
     <div class="eyebrow">Half Moon Bay tide pools</div>
     <h1>Unicorn Low Tide</h1>
     <p>A minus tide on a Saturday afternoon, with hours of daylight to explore the reef. It happens about once a year. When it does, clear your Saturday.</p>
-    <a class="jump" href="#custom">Different day or time? Pick your own ↓</a>
+    <a class="jump" href="#custom">Free on a weekday? Pick your day ↓</a>
   </header>
 
   <div class="hero" id="hero">
@@ -208,9 +208,9 @@
   </section>
 
   <section id="custom">
-    <h2>Pick your own day</h2>
+    <h2>Pick a weekday</h2>
     <div class="card picker">
-      <div class="chips" id="chips" role="group" aria-label="Days of the week"></div>
+      <div class="chips" id="chips" role="radiogroup" aria-label="Weekday"></div>
       <label class="after">Low tide after
         <select id="after">
           <option value="sunrise">sunrise</option>
@@ -223,7 +223,7 @@
       </label>
     </div>
     <p class="muted" id="custom-count" style="margin:12px 0 10px"></p>
-    <div class="card" id="custom-card" hidden><ul class="misses" id="custom-list"></ul></div>
+    <div class="list" id="custom-list" hidden></div>
   </section>
 
   <section class="notes">
@@ -256,11 +256,11 @@
         <li>The page sticks to Saturdays, but a Sunday is added (tagged <b>Sunday</b>) when it has a qualifying minus tide and that weekend's Saturday doesn't.</li>
         <li>Smaller minus tides and big lows that miss the light look 2 years ahead, grouped by year. Unicorn Saturdays and summer foraging tides look 4 years ahead.</li>
       </ul>
-      <h3>Pick your own day</h3>
+      <h3>Pick a weekday</h3>
       <ul>
-        <li>Shows every unicorn (−1.0 ft or lower) and almost-unicorn (−0.75 ft or lower) low tide on the days you pick, 4 years ahead. The low has to come after the time you choose (and after sunrise) and at least 30 minutes before sunset.</li>
-        <li>Leave SF uses a smooth tide curve between the high and the low, within a couple of minutes of NOAA's detailed predictions. It gets you to the beach as the tide drops below 0 ft, or at sunrise if that's later.</li>
-        <li>Your choice is saved in this browser and in the page link, so you can share a link with your days already picked. Email reminders still cover Saturdays only.</li>
+        <li>Shows every unicorn (−1.0 ft or lower) and almost-unicorn (−0.75 ft or lower) low tide on the weekday you pick, 4 years ahead. The low has to come after the time you choose (and after sunrise) and at least 30 minutes before sunset.</li>
+        <li>Leave SF and the small tide charts use a smooth curve between NOAA's high and low tide predictions, within a couple of minutes of NOAA's detailed curve. It gets you to the beach as the tide drops below 0 ft, or at sunrise if that's later.</li>
+        <li>Your choice is saved in this browser and in the page link, so you can share a link with your day already picked. Email reminders still cover Saturdays only.</li>
       </ul>
       <h3>What the forecast can't see</h3>
       <ul>
@@ -304,46 +304,70 @@
     }).join('');
   };
   const sundayTag = (s) => (s.sunday ? '<span class="badge almost" title="Saturday has no minus tide this weekend">Sunday</span>' : '');
-  // Pick-your-own-day: filter every daylight unicorn/almost low by weekday and earliest time
-  const DAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
-  const DAY_NAMES = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  // Pick a weekday: one day at a time, filter every daylight unicorn/almost low by weekday and earliest time
+  const DAYS = ['mon', 'tue', 'wed', 'thu', 'fri'];
+  const DAY_NAMES = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+  const DAY_FULL = ['Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays'];
   const setupPicker = (all) => {
     const params = new URLSearchParams(location.search);
     let saved = {};
-    try { saved = JSON.parse(localStorage.getItem('unicorn-tides-pick')) || {}; } catch {}
-    let days = new Set((params.get('days') || saved.days || '').split(',').filter((d) => DAYS.includes(d)));
+    try { saved = JSON.parse(localStorage.getItem('unicorn-tides-weekday')) || {}; } catch {}
+    let day = [params.get('day'), saved.day].find((d) => DAYS.includes(d)) || null;
     const after = document.getElementById('after');
     after.value = params.get('after') || saved.after || '12';
     if (!after.value) after.value = '12';
     const chips = document.getElementById('chips');
-    chips.innerHTML = DAYS.map((d, i) => `<button type="button" class="chip" data-day="${d}" aria-pressed="${days.has(d)}">${DAY_NAMES[i]}</button>`).join('');
+    const drawChips = () => {
+      chips.innerHTML = DAYS.map((d, i) => `<button type="button" class="chip" role="radio" data-day="${d}" aria-checked="${d === day}" aria-pressed="${d === day}">${DAY_NAMES[i]}</button>`).join('');
+    };
     const render = () => {
-      const sel = DAYS.map((d, i) => (days.has(d) ? i : -1)).filter((i) => i >= 0);
+      drawChips();
+      const i = DAYS.indexOf(day);
       const a = after.value;
-      const rows = all.filter((x) => sel.includes(x.dow) && (a === 'sunrise' || x.low_h >= Number(a)));
+      const list = document.getElementById('custom-list');
       const count = document.getElementById('custom-count');
-      const card = document.getElementById('custom-card');
-      if (!sel.length) { count.textContent = 'Pick one or more days to see their unicorn low tides.'; card.hidden = true; }
+      if (i < 0) { count.textContent = 'Pick a weekday to see its unicorn low tides.'; list.hidden = true; }
       else {
+        const rows = all.filter((x) => x.dow === i && (a === 'sunrise' || x.low_h >= Number(a)));
         const u = rows.filter((x) => x.tier === 'unicorn').length;
         count.textContent = rows.length
-          ? `${rows.length} low tide${rows.length > 1 ? 's' : ''} in the next 4 years (${u} unicorn${u === 1 ? '' : 's'}).`
-          : 'No unicorn or almost-unicorn low tides on those days in the next 4 years. Try an earlier time or more days.';
-        document.getElementById('custom-list').innerHTML = byYear(rows, (m) =>
-          `<li><b>${m.label}</b><span>${sign(m.low_ft)} ft at ${m.low_time}</span><span class="badge ${m.tier}">${tierName(m.tier)}</span><span class="why">${m.low_h < 12 ? `sunrise ${m.sunrise}` : `sunset ${m.sunset}`} · Leave SF ${m.leave_sf}</span></li>`);
-        card.hidden = !rows.length;
+          ? `${DAY_FULL[i]}: ${rows.length} low tide${rows.length > 1 ? 's' : ''} in the next 4 years (${u} unicorn${u === 1 ? '' : 's'}).`
+          : `No unicorn or almost-unicorn low tides on ${DAY_FULL[i]} in the next 4 years. Try an earlier time.`;
+        let year = null;
+        list.innerHTML = rows.map((m) => {
+          const [dow, mon, dd, yr] = m.label.replace(',', '').split(' ');
+          const head = yr !== year ? `<div class="summer-head">${yr}</div>` : '';
+          year = yr;
+          const sunFact = m.sunrise_h != null
+            ? `<span title="Sunrise">${ICON.sunrise}Sunrise <b>${m.sunrise}</b></span>`
+            : `<span title="Sunset">${ICON.sunset}Sunset <b>${m.sunset}</b></span>`;
+          return `${head}
+          <div class="sat ${m.tier}">
+            <div class="cal"><b>${dow}</b><strong>${mon} ${dd}</strong><small>${yr}</small></div>
+            <div class="what">
+              <div class="top"><span class="ft">${sign(m.low_ft)} ft</span><span class="badge ${m.tier}">${tierName(m.tier)}</span></div>
+              <div class="facts">
+                <span title="Low tide">${ICON.low}Low <b>${m.low_time}</b></span>
+                ${sunFact}
+                <span title="Leave San Francisco by this time">${ICON.car}Leave SF <b>${m.leave_sf}</b></span>
+                <span class="away">${away(m.days_away)}</span>
+              </div>
+            </div>
+            ${chart(m)}
+          </div>`;
+        }).join('');
+        list.hidden = !rows.length;
       }
       const q = new URLSearchParams(location.search);
-      if (sel.length) q.set('days', [...days].join(',')); else q.delete('days');
+      q.delete('days');
+      if (day) q.set('day', day); else q.delete('day');
       if (a !== '12') q.set('after', a); else q.delete('after');
       history.replaceState(null, '', `${location.pathname}${q.toString() ? `?${q}` : ''}${location.hash}`);
-      try { localStorage.setItem('unicorn-tides-pick', JSON.stringify({ days: [...days].join(','), after: a })); } catch {}
+      try { localStorage.setItem('unicorn-tides-weekday', JSON.stringify({ day, after: a })); } catch {}
     };
     chips.addEventListener('click', (e) => {
       const b = e.target.closest('.chip'); if (!b) return;
-      const d = b.dataset.day;
-      days.has(d) ? days.delete(d) : days.add(d);
-      b.setAttribute('aria-pressed', days.has(d));
+      day = b.dataset.day === day ? null : b.dataset.day;
       render();
     });
     after.addEventListener('change', render);

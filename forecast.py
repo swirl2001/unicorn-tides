@@ -13,7 +13,7 @@ Email alerts need these environment variables (GitHub Actions secrets):
   GMAIL_USER, GMAIL_APP_PASSWORD, ALERT_EMAILS (comma-separated, sent in BCC).
 Without them it prints the message instead of sending.
 """
-import json, math, os, smtplib, time, urllib.request
+import bisect, json, math, os, smtplib, time, urllib.request
 from email.message import EmailMessage
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -141,8 +141,9 @@ def any_day(hilo, today, horizon):
     Leave SF uses a cosine tide curve between the previous high and the low (within a few minutes of NOAA's
     6-minute predictions), arriving as the tide drops below 0 ft or at sunrise if later."""
     out = []
+    times = [p[0] for p in hilo]
     for (t0, h, k0), (t, v, k) in zip(hilo, hilo[1:]):
-        if k != 'L' or v > ALMOST_FT or not (today <= t.date() <= horizon):
+        if k != 'L' or v > ALMOST_FT or t.weekday() > 4 or not (today <= t.date() <= horizon):
             continue
         rise, sset = sun(t.date())
         if not (rise <= t and (sset - t).total_seconds() / 60 >= SUNSET_BUFFER_MIN):
@@ -152,7 +153,20 @@ def any_day(hilo, today, horizon):
             x = math.acos(max(-1, min(1, 2 * (-v) / (h - v) - 1)))
             cross = t0 + (t - t0) * (x / math.pi)
         arrive = max(cross, rise).replace(second=0, microsecond=0)
-        out.append(dict(date=t.date().isoformat(), label=t.strftime('%a %b %-d, %Y'), dow=t.weekday(),
+        # Small chart: cosine curve through the surrounding highs and lows, every 30 min
+        morning = t.hour < 12
+        h0 = math.floor(hours(rise) - 1.5) if morning else 12
+        h1 = h0 + 8 if morning else math.ceil(hours(sset) + 1.5)
+        day0 = datetime(t.year, t.month, t.day, tzinfo=PT)
+        curve = []
+        for k30 in range(int(h0 * 2), int(h1 * 2) + 1):
+            when = day0 + timedelta(minutes=30 * k30)
+            j = bisect.bisect_right(times, when)
+            if 0 < j < len(hilo):
+                (ta, va, _), (tb, vb, _) = hilo[j - 1], hilo[j]
+                f = (when - ta) / (tb - ta)
+                curve.append([k30 / 2, round(vb + (va - vb) * (1 + math.cos(math.pi * f)) / 2, 2)])
+        out.append(dict(curve=curve, sunset_h=hours(sset), sunrise_h=hours(rise) if morning else None,date=t.date().isoformat(), label=t.strftime('%a %b %-d, %Y'), dow=t.weekday(),
                         tier='unicorn' if v <= UNICORN_FT else 'almost', low_ft=round(v, 2),
                         low_time=clock(t), low_h=hours(t), sunrise=clock(rise), sunset=clock(sset),
                         leave_sf=clock(arrive - timedelta(minutes=DRIVE_MIN + WALK_MIN)),
