@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unicorn Low Tide</title>
+<meta name="description" content="Every upcoming Saturday-afternoon minus tide with daylight to explore the tide pools below the Ritz-Carlton, Half Moon Bay.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦀</text></svg>">
+<style>
+  :root {
+    --bg: #f6f1e7;           /* sand */
+    --surface: #fffdf8;
+    --ink: #1f2f3a;          /* wet rock */
+    --muted: #5f6f78;
+    --line: #e2d9c8;
+    --sea: #2f7f86;          /* tide pool */
+    --sea-soft: #d8ecea;
+    --star: #e0673f;         /* sea star */
+    --star-soft: #fbe3d8;
+    --night: #c9cfd6;
+    --radius: 16px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #10171c; --surface: #172229; --ink: #e8eef1; --muted: #98a8b1; --line: #24343d;
+      --sea: #5cc0c6; --sea-soft: #173a3d; --star: #f2875f; --star-soft: #3d241b; --night: #2b3a44;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", Inter, "Segoe UI", system-ui, sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+  header p { margin: 0; color: var(--muted); }
+  @media (min-width: 900px) {
+    main { max-width: 820px; padding: 40px 16px 72px; }
+    header p { font-size: 17px; max-width: 34em; }
+  }
+  h1 { font-size: clamp(28px, 6vw, 40px); letter-spacing: -0.02em; line-height: 1.1; margin: 4px 0 6px; }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--sea); }
+  svg.i { width: 14px; height: 14px; flex: none; }
+
+  .hero {
+    margin: 28px 0; padding: 28px; border-radius: var(--radius); background: var(--surface);
+    border: 1px solid var(--line); display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: center;
+  }
+  .ring { --p: 0; width: 140px; height: 140px; border-radius: 50%; display: grid; place-items: center;
+    background: conic-gradient(var(--star) calc(var(--p) * 1%), var(--sea-soft) 0); }
+  .ring > div { width: 112px; height: 112px; border-radius: 50%; background: var(--surface); display: grid; place-items: center; text-align: center; }
+  .ring strong { font-size: 34px; letter-spacing: -0.03em; line-height: 1; }
+  .ring span { font-size: 12px; color: var(--muted); }
+  .hero h2 { margin: 0 0 6px; font-size: 22px; letter-spacing: -0.01em; }
+  .hero p { margin: 0; color: var(--muted); }
+  .hero p + p { margin-top: 8px; }
+  .hero b { color: var(--ink); }
+  .hero.go { border-color: var(--star); box-shadow: 0 0 0 3px color-mix(in srgb, var(--star) 30%, transparent); }
+
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 99px; vertical-align: middle; white-space: nowrap; }
+  .badge.unicorn { background: var(--star); color: #fff; }
+  .badge.almost { background: var(--sea-soft); color: var(--sea); }
+
+  section { margin-top: 40px; }
+  section h2 { font-size: 20px; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+  .muted { color: var(--muted); }
+
+  /* Upcoming Saturdays */
+  .list { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .sat { display: grid; grid-template-columns: 72px 1fr 220px; gap: 16px; align-items: center; padding: 16px 18px;
+    border-bottom: 1px solid var(--line); }
+  .sat:last-child { border-bottom: 0; }
+  .sat.unicorn { background: color-mix(in srgb, var(--star) 8%, var(--surface)); }
+  .cal { text-align: center; line-height: 1.15; }
+  .cal b { display: block; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .cal strong { display: block; font-size: 22px; letter-spacing: -0.02em; }
+  .cal small { display: block; font-size: 12px; color: var(--muted); }
+  .what { min-width: 0; }
+  .what .top { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+  .what .ft { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .facts { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 4px; font-size: 13px; color: var(--muted); }
+  .facts span { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+  .facts b { color: var(--ink); font-weight: 600; }
+  .facts svg { color: var(--sea); }
+  .facts .away { color: var(--muted); }
+  .chart svg { display: block; width: 100%; height: 64px; overflow: visible; }
+  .chart .night { fill: var(--night); opacity: .55; }
+  .chart .zero { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 2 3; vector-effect: non-scaling-stroke; }
+  .chart .area { fill: color-mix(in srgb, var(--sea) 18%, transparent); }
+  .chart .line { fill: none; stroke: var(--sea); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+  .chart .ticks { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .chart .dot { position: relative; }
+  .chart-wrap { position: relative; }
+  .chart-wrap .low { position: absolute; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; border-radius: 50%; background: var(--star); border: 2px solid var(--surface); }
+  .key { display: flex; flex-wrap: wrap; gap: 6px 16px; justify-content: center; margin: 10px 0 0; font-size: 12px; color: var(--muted); }
+  .key span { display: inline-flex; align-items: center; gap: 6px; }
+  .key i { display: inline-block; width: 12px; height: 10px; border-radius: 3px; }
+
+  .misses { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; font-size: 14px; }
+  .misses li { display: flex; flex-wrap: wrap; gap: 2px 10px; }
+  .misses b { font-weight: 600; }
+  .misses .why { color: var(--muted); }
+
+  .rules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 14px 0; }
+  .rules div { background: var(--sea-soft); border-radius: 12px; padding: 12px; }
+  .rules strong { display: block; font-size: 22px; letter-spacing: -0.02em; }
+  .rules span { font-size: 13px; color: var(--muted); }
+
+  .notes .card { padding: 22px; }
+  .notes h3 { margin: 18px 0 6px; font-size: 15px; font-weight: 700; }
+  .notes h3:first-child { margin-top: 0; }
+  .notes li { font-size: 14px; color: var(--muted); }
+  .notes ul { margin: 0; padding-left: 18px; }
+  .notes li + li { margin-top: 4px; }
+  .notes b { color: var(--ink); font-weight: 600; }
+  .notes a { color: inherit; }
+
+  footer { margin-top: 48px; font-size: 13px; color: var(--muted); }
+  footer a { color: inherit; }
+
+  @media (max-width: 700px) {
+    .sat { grid-template-columns: 60px 1fr; gap: 10px 14px; padding: 14px; }
+    .sat .chart { grid-column: 1 / -1; }
+  }
+  @media (max-width: 560px) {
+    .hero { grid-template-columns: 1fr; justify-items: start; padding: 20px; }
+    .rules { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="eyebrow">Ritz-Carlton tide pools · Half Moon Bay</div>
+    <h1>Unicorn Low Tide</h1>
+    <p>A minus tide on a Saturday afternoon, with hours of daylight to explore the reef. It happens about once a year. When it does, clear your Saturday.</p>
+  </header>
+
+  <div class="hero" id="hero">
+    <div class="ring" id="ring"><div><div><strong id="days-left">–</strong><br><span id="days-word">days</span></div></div></div>
+    <div>
+      <h2 id="hero-title">Checking the tides…</h2>
+      <p id="hero-text"></p>
+      <p id="hero-next"></p>
+    </div>
+  </div>
+
+  <section>
+    <h2>Upcoming Saturdays</h2>
+    <div class="list" id="list" aria-live="polite"></div>
+    <p class="key" id="key" hidden>
+      <span><i style="background:color-mix(in srgb, var(--sea) 30%, transparent)"></i>Tide, noon to after sunset</span>
+      <span><i style="background:var(--night)"></i>After sunset</span>
+      <span><i style="border-top:1px dashed var(--muted);height:0;border-radius:0"></i>0 ft</span>
+    </p>
+  </section>
+
+  <section id="misses-section" hidden>
+    <h2>Big lows that miss the light</h2>
+    <div class="card"><ul class="misses" id="misses"></ul></div>
+  </section>
+
+  <section>
+    <h2>What's a unicorn low tide?</h2>
+    <div class="card">
+      <p style="margin:0">A Saturday low tide with:</p>
+      <div class="rules">
+        <div><strong>−1.0 ft</strong><span>or lower. −0.75 ft counts as almost unicorn.</span></div>
+        <div><strong>After noon</strong><span>so you can walk out on the falling tide</span></div>
+        <div><strong>30+ min</strong><span>of light left after the low</span></div>
+      </div>
+      <p class="muted" style="margin:0">The year's lowest tides fall at dawn in summer and at dusk in winter, so a deep minus tide with good afternoon light is rare. Almost all of them land on November–February afternoons.</p>
+    </div>
+  </section>
+
+  <section class="notes">
+    <h2>Notes on the data</h2>
+    <div class="card">
+      <h3>Tides</h3>
+      <ul>
+        <li><b>NOAA tide predictions</b> for Pillar Point Harbor (station 9414131), about 5 miles north of the Ritz-Carlton reef. Tides there and at the reef are within minutes of each other.</li>
+        <li>Heights are in feet above <b>mean lower low water</b> (MLLW), the average of each day's lower low tide. A minus tide drops below that, exposing reef that's usually underwater.</li>
+        <li>Tides follow the moon and sun, so predictions are reliable years ahead. That's why this page can list Saturdays into 2030.</li>
+      </ul>
+      <h3>Daylight</h3>
+      <ul>
+        <li>Sunrise and sunset are worked out for the reef with NOAA's solar formula, accurate to a couple of minutes.</li>
+        <li>A low only counts if it's at noon or later and at least 30 minutes before sunset. With an afternoon low you get about 3 hours of light on the falling tide, plus a little at the bottom.</li>
+        <li><b>Head out</b> is 2 hours before the low, when the reef starts opening up.</li>
+      </ul>
+      <h3>What the forecast can't see</h3>
+      <ul>
+        <li>Tide predictions don't include swell, wind or storms. A big swell can wash over the reef even on a minus tide, and low pressure can keep the water a little higher than predicted. Check the surf forecast the day before.</li>
+      </ul>
+      <h3>Alerts</h3>
+      <ul>
+        <li>An email goes out 7 days before and again the day before each qualifying Saturday. The check runs once a day.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <p id="updated"></p>
+    <p>Tides: <a href="https://tidesandcurrents.noaa.gov/stationhome.html?id=9414131">NOAA Tides &amp; Currents</a>. Never turn your back on the ocean, watch for sneaker waves, and leave everything where you found it. Tide pools here are protected.</p>
+  </footer>
+</main>
+
+<script>
+  const svg = (d) => `<svg class="i" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+  const ICON = {
+    low: svg('<path d="M8 2.5v9"/><path d="M4.5 8.5L8 12l3.5-3.5"/><path d="M2 14h12"/>'),
+    sunset: svg('<path d="M3 12a5 5 0 0 1 10 0"/><path d="M1.5 14h13"/><path d="M8 3.5v2"/><path d="M3 6l1.3 1.3"/><path d="M13 6l-1.3 1.3"/>'),
+    boot: svg('<path d="M5 2.5h4v6.5l4 2v2.5H3v-11z"/><path d="M3 11.5h10"/>'),
+  };
+  const sign = (v) => (v < 0 ? `−${Math.abs(v).toFixed(2)}` : v.toFixed(2));
+  const away = (n) => (n === 0 ? 'today' : n === 1 ? 'tomorrow' : n < 60 ? `in ${n} days` : n < 730 ? `in ${Math.round(n / 30.4)} months` : `in ${(n / 365).toFixed(1)} years`);
+  const tierName = (t) => (t === 'unicorn' ? 'Unicorn' : 'Almost unicorn');
+  const hourLabel = (h) => (h === 12 ? 'noon' : h > 12 ? `${h - 12}pm` : `${h}am`);
+
+  const chart = (s) => {
+    const pts = s.curve;
+    if (!pts || pts.length < 2) return '<div class="chart"></div>';
+    const x0 = 12, x1 = Math.ceil(s.sunset_h + 1.5);
+    const vs = pts.map((p) => p[1]);
+    const yMin = Math.min(-1.5, ...vs), yMax = Math.max(4, ...vs);
+    const X = (h) => ((h - x0) / (x1 - x0)) * 100, Y = (v) => 4 + (1 - (v - yMin) / (yMax - yMin)) * 52;
+    const inView = pts.filter((p) => p[0] >= x0 && p[0] <= x1);
+    const line = inView.map((p, i) => `${i ? 'L' : 'M'}${X(p[0]).toFixed(2)} ${Y(p[1]).toFixed(2)}`).join(' ');
+    const area = `${line} L${X(inView.at(-1)[0]).toFixed(2)} 60 L${X(inView[0][0]).toFixed(2)} 60 Z`;
+    const ticks = [];
+    for (let h = x0; h <= x1; h += 2) ticks.push(`<span>${hourLabel(h)}</span>`);
+    return `<div class="chart"><div class="chart-wrap">
+      <svg viewBox="0 0 100 60" preserveAspectRatio="none" role="img" aria-label="Afternoon tide curve, low ${sign(s.low_ft)} feet at ${s.low_time}, sunset ${s.sunset}">
+        <rect class="night" x="${X(s.sunset_h).toFixed(2)}" y="0" width="${(100 - X(s.sunset_h)).toFixed(2)}" height="60"/>
+        <path class="area" d="${area}"/><path class="line" d="${line}"/>
+        <line class="zero" x1="0" x2="100" y1="${Y(0).toFixed(2)}" y2="${Y(0).toFixed(2)}"/>
+      </svg>
+      <span class="low" style="left:${X(s.low_h)}%;top:${(Y(s.low_ft) / 60) * 100}%"></span></div>
+      <div class="ticks">${ticks.join('')}</div></div>`;
+  };
+
+  fetch('data.json', { cache: 'no-store' })
+    .then((r) => r.json())
+    .then((data) => {
+      const sats = data.saturdays || [];
+      const next = sats[0];
+      const nextUnicorn = sats.find((s) => s.tier === 'unicorn');
+      const hero = document.getElementById('hero');
+      if (next) {
+        document.getElementById('days-left').textContent = next.days_away;
+        document.getElementById('days-word').textContent = next.days_away === 1 ? 'day to go' : 'days to go';
+        document.getElementById('ring').style.setProperty('--p', Math.max(2, 100 - (next.days_away / 365) * 100));
+        if (next.days_away <= 7) hero.classList.add('go');
+        document.getElementById('hero-title').innerHTML = `Next up: ${next.label} <span class="badge ${next.tier}">${tierName(next.tier)}</span>`;
+        document.getElementById('hero-text').innerHTML =
+          `Low of <b>${sign(next.low_ft)} ft at ${next.low_time}</b>, sunset ${next.sunset}. Head out around ${next.head_out}.`;
+        if (nextUnicorn && nextUnicorn !== next)
+          document.getElementById('hero-next').innerHTML = `Next full unicorn: <b>${nextUnicorn.label}</b>, ${sign(nextUnicorn.low_ft)} ft at ${nextUnicorn.low_time}.`;
+      } else {
+        document.getElementById('hero-title').textContent = 'No qualifying Saturdays found';
+      }
+
+      document.getElementById('list').innerHTML = sats.map((s) => {
+        const [dow, mon, day, year] = s.label.replace(',', '').split(' ');
+        return `
+        <div class="sat ${s.tier}">
+          <div class="cal"><b>${dow}</b><strong>${mon} ${day}</strong><small>${year}</small></div>
+          <div class="what">
+            <div class="top"><span class="ft">${sign(s.low_ft)} ft</span><span class="badge ${s.tier}">${tierName(s.tier)}</span></div>
+            <div class="facts">
+              <span title="Low tide">${ICON.low}Low <b>${s.low_time}</b></span>
+              <span title="Sunset">${ICON.sunset}Sunset <b>${s.sunset}</b></span>
+              <span title="When to head out">${ICON.boot}Head out ${s.head_out}</span>
+              <span class="away">${away(s.days_away)}</span>
+            </div>
+          </div>
+          ${chart(s)}
+        </div>`;
+      }).join('');
+      document.getElementById('key').hidden = !sats.some((s) => s.curve);
+
+      const misses = data.misses || [];
+      if (misses.length) {
+        document.getElementById('misses').innerHTML = misses.map((m) =>
+          `<li><b>${m.label}</b><span>${sign(m.low_ft)} ft at ${m.low_time}</span><span class="why">${m.why}${m.why === 'after dark' || m.why === 'right at sunset' ? ` (sunset ${m.sunset})` : ` (sunrise ${m.sunrise})`}</span></li>`).join('');
+        document.getElementById('misses-section').hidden = false;
+      }
+      document.getElementById('updated').textContent = `Updated ${data.generated_local} Pacific. Checks run every morning.`;
+    })
+    .catch(() => { document.getElementById('hero-title').textContent = "Couldn't load the tides"; });
+</script>
+</body>
+</html>

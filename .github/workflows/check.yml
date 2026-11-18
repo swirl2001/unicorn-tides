@@ -1,0 +1,45 @@
+name: Check for a unicorn low tide
+
+on:
+  schedule:
+    - cron: '7 15 * * *'   # ~7 am Pacific (8 am in summer)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: unicorn
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Find Saturdays and send reminders
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          ALERT_EMAILS: ${{ secrets.ALERT_EMAILS }}
+          PAGE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+        run: python forecast.py
+      - name: Save data and alert history
+        run: |
+          git config user.name "unicorn-bot"
+          git config user.email "unicorn-bot@users.noreply.github.com"
+          git add site/data.json state.json
+          git diff --cached --quiet || git commit -m "Tide update"
+          git push
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - uses: actions/deploy-pages@v4
