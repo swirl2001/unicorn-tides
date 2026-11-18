@@ -135,13 +135,40 @@ def summer_lows(today):
     return sorted(out, key=lambda s: s['date'])
 
 
+def any_day(hilo, today, horizon):
+    """Every unicorn or almost-unicorn low on any day of the week, in daylight (after sunrise and at least
+    SUNSET_BUFFER_MIN before sunset), for the page's custom day/time picker. The page filters these.
+    Leave SF uses a cosine tide curve between the previous high and the low (within a few minutes of NOAA's
+    6-minute predictions), arriving as the tide drops below 0 ft or at sunrise if later."""
+    out = []
+    for (t0, h, k0), (t, v, k) in zip(hilo, hilo[1:]):
+        if k != 'L' or v > ALMOST_FT or not (today <= t.date() <= horizon):
+            continue
+        rise, sset = sun(t.date())
+        if not (rise <= t and (sset - t).total_seconds() / 60 >= SUNSET_BUFFER_MIN):
+            continue
+        cross = t0
+        if h > 0:
+            x = math.acos(max(-1, min(1, 2 * (-v) / (h - v) - 1)))
+            cross = t0 + (t - t0) * (x / math.pi)
+        arrive = max(cross, rise).replace(second=0, microsecond=0)
+        out.append(dict(date=t.date().isoformat(), label=t.strftime('%a %b %-d, %Y'), dow=t.weekday(),
+                        tier='unicorn' if v <= UNICORN_FT else 'almost', low_ft=round(v, 2),
+                        low_time=clock(t), low_h=hours(t), sunrise=clock(rise), sunset=clock(sset),
+                        leave_sf=clock(arrive - timedelta(minutes=DRIVE_MIN + WALK_MIN)),
+                        days_away=(t.date() - today).days))
+    return out
+
+
 def build():
     now = datetime.now(PT)
     today = now.date()
-    lows = []
+    lows, hilo = [], []
     horizon = horizon_for(today)
     for y in range(today.year, horizon.year + 1):
-        lows += [(t, v) for t, v, kind in predictions(date(y, 1, 1), date(y, 12, 31), 'hilo') if kind == 'L']
+        year_hilo = predictions(date(y, 1, 1), date(y, 12, 31), 'hilo')
+        hilo += year_hilo
+        lows += [(t, v) for t, v, kind in year_hilo if kind == 'L']
 
     saturdays, misses, minor = [], [], []
     for t, v in lows:
@@ -187,12 +214,14 @@ def build():
         add_travel(s, predictions(d, d, '6'))
 
     summer = summer_lows(today)
+    anyday = any_day(hilo, today, horizon)
     return dict(
         generated=now.isoformat(), generated_local=now.strftime('%a %b %-d, %-I:%M %p'),
         horizon=horizon_for(today).strftime('%b %-d, %Y'),
         short_horizon=horizon_for(today, SHORT_YEARS).strftime('%b %-d, %Y'),
         rule=dict(unicorn_ft=UNICORN_FT, almost_ft=ALMOST_FT, earliest=EARLIEST,
                   sunset_buffer_min=SUNSET_BUFFER_MIN, station=STATION),
+        anyday=anyday,
         saturdays=saturdays, minor=minor, misses=[m for m in misses if m['date'] not in {x['date'] for x in summer}], summer=summer,
     )
 

@@ -109,6 +109,14 @@
 
   .summer-head { padding: 10px 18px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
     background: color-mix(in srgb, var(--bg) 70%, var(--surface)); border-bottom: 1px solid var(--line); }
+  .jump { display: inline-block; margin-top: 10px; font-size: 14px; font-weight: 600; color: var(--sea); text-underline-offset: 3px; }
+  .picker { display: grid; gap: 14px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { height: 36px; padding: 0 14px; border-radius: 99px; border: 1px solid var(--line); background: var(--bg); color: var(--ink);
+    font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .chip[aria-pressed="true"] { background: var(--sea); border-color: var(--sea); color: var(--surface); }
+  .after { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14px; }
+  .after select { height: 36px; padding: 0 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); font: inherit; font-size: 14px; }
   .rules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 14px 0; }
   .rules div { background: var(--sea-soft); border-radius: 12px; padding: 12px; }
   .rules strong { display: block; font-size: 22px; letter-spacing: -0.02em; }
@@ -142,6 +150,7 @@
     <div class="eyebrow">Half Moon Bay tide pools</div>
     <h1>Unicorn Low Tide</h1>
     <p>A minus tide on a Saturday afternoon, with hours of daylight to explore the reef. It happens about once a year. When it does, clear your Saturday.</p>
+    <a class="jump" href="#custom">Different day or time? Pick your own ↓</a>
   </header>
 
   <div class="hero" id="hero">
@@ -198,6 +207,25 @@
     </p>
   </section>
 
+  <section id="custom">
+    <h2>Pick your own day</h2>
+    <div class="card picker">
+      <div class="chips" id="chips" role="group" aria-label="Days of the week"></div>
+      <label class="after">Low tide after
+        <select id="after">
+          <option value="sunrise">sunrise</option>
+          <option value="8">8 am</option>
+          <option value="10">10 am</option>
+          <option value="12" selected>noon</option>
+          <option value="14">2 pm</option>
+        </select>
+        <span class="muted">and at least 30 min before sunset</span>
+      </label>
+    </div>
+    <p class="muted" id="custom-count" style="margin:12px 0 10px"></p>
+    <div class="card" id="custom-card" hidden><ul class="misses" id="custom-list"></ul></div>
+  </section>
+
   <section class="notes">
     <h2>Notes on the data</h2>
     <div class="card">
@@ -227,6 +255,12 @@
       <ul>
         <li>The page sticks to Saturdays, but a Sunday is added (tagged <b>Sunday</b>) when it has a qualifying minus tide and that weekend's Saturday doesn't.</li>
         <li>Smaller minus tides and big lows that miss the light look 2 years ahead, grouped by year. Unicorn Saturdays and summer foraging tides look 4 years ahead.</li>
+      </ul>
+      <h3>Pick your own day</h3>
+      <ul>
+        <li>Shows every unicorn (−1.0 ft or lower) and almost-unicorn (−0.75 ft or lower) low tide on the days you pick, 4 years ahead. The low has to come after the time you choose (and after sunrise) and at least 30 minutes before sunset.</li>
+        <li>Leave SF uses a smooth tide curve between the high and the low, within a couple of minutes of NOAA's detailed predictions. It gets you to the beach as the tide drops below 0 ft, or at sunrise if that's later.</li>
+        <li>Your choice is saved in this browser and in the page link, so you can share a link with your days already picked. Email reminders still cover Saturdays only.</li>
       </ul>
       <h3>What the forecast can't see</h3>
       <ul>
@@ -270,6 +304,52 @@
     }).join('');
   };
   const sundayTag = (s) => (s.sunday ? '<span class="badge almost" title="Saturday has no minus tide this weekend">Sunday</span>' : '');
+  // Pick-your-own-day: filter every daylight unicorn/almost low by weekday and earliest time
+  const DAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+  const DAY_NAMES = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const setupPicker = (all) => {
+    const params = new URLSearchParams(location.search);
+    let saved = {};
+    try { saved = JSON.parse(localStorage.getItem('unicorn-tides-pick')) || {}; } catch {}
+    let days = new Set((params.get('days') || saved.days || '').split(',').filter((d) => DAYS.includes(d)));
+    const after = document.getElementById('after');
+    after.value = params.get('after') || saved.after || '12';
+    if (!after.value) after.value = '12';
+    const chips = document.getElementById('chips');
+    chips.innerHTML = DAYS.map((d, i) => `<button type="button" class="chip" data-day="${d}" aria-pressed="${days.has(d)}">${DAY_NAMES[i]}</button>`).join('');
+    const render = () => {
+      const sel = DAYS.map((d, i) => (days.has(d) ? i : -1)).filter((i) => i >= 0);
+      const a = after.value;
+      const rows = all.filter((x) => sel.includes(x.dow) && (a === 'sunrise' || x.low_h >= Number(a)));
+      const count = document.getElementById('custom-count');
+      const card = document.getElementById('custom-card');
+      if (!sel.length) { count.textContent = 'Pick one or more days to see their unicorn low tides.'; card.hidden = true; }
+      else {
+        const u = rows.filter((x) => x.tier === 'unicorn').length;
+        count.textContent = rows.length
+          ? `${rows.length} low tide${rows.length > 1 ? 's' : ''} in the next 4 years (${u} unicorn${u === 1 ? '' : 's'}).`
+          : 'No unicorn or almost-unicorn low tides on those days in the next 4 years. Try an earlier time or more days.';
+        document.getElementById('custom-list').innerHTML = byYear(rows, (m) =>
+          `<li><b>${m.label}</b><span>${sign(m.low_ft)} ft at ${m.low_time}</span><span class="badge ${m.tier}">${tierName(m.tier)}</span><span class="why">${m.low_h < 12 ? `sunrise ${m.sunrise}` : `sunset ${m.sunset}`} · Leave SF ${m.leave_sf}</span></li>`);
+        card.hidden = !rows.length;
+      }
+      const q = new URLSearchParams(location.search);
+      if (sel.length) q.set('days', [...days].join(',')); else q.delete('days');
+      if (a !== '12') q.set('after', a); else q.delete('after');
+      history.replaceState(null, '', `${location.pathname}${q.toString() ? `?${q}` : ''}${location.hash}`);
+      try { localStorage.setItem('unicorn-tides-pick', JSON.stringify({ days: [...days].join(','), after: a })); } catch {}
+    };
+    chips.addEventListener('click', (e) => {
+      const b = e.target.closest('.chip'); if (!b) return;
+      const d = b.dataset.day;
+      days.has(d) ? days.delete(d) : days.add(d);
+      b.setAttribute('aria-pressed', days.has(d));
+      render();
+    });
+    after.addEventListener('change', render);
+    render();
+    if (location.hash === '#custom') document.getElementById('custom').scrollIntoView();
+  };
   const chart = (s) => {
     const pts = s.curve;
     if (!pts || pts.length < 2) return '<div class="chart"></div>';
@@ -368,6 +448,8 @@
           `<li><b>${m.label}</b><span>${sign(m.low_ft)} ft at ${m.low_time}</span><span class="why">sunset ${m.sunset} · Leave SF ${m.leave_sf}</span>${sundayTag(m)}</li>`);
         document.getElementById('minor-section').hidden = false;
       }
+
+      setupPicker(data.anyday || []);
 
       const misses = data.misses || [];
       if (misses.length) {
