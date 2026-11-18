@@ -27,6 +27,7 @@ UNICORN_FT = -1.0
 ALMOST_FT = -0.75
 EARLIEST = 12                      # low tide at noon or later
 SUNSET_BUFFER_MIN = 30             # low at least this long before sunset
+SHORT_YEARS = 2                    # smaller minus tides and missed lows: shorter look-ahead
 YEARS_AHEAD = 4                    # rolling window: everything from today to 4 years from today
 DRIVE_MIN = 60                     # San Francisco to the Ritz-Carlton parking
 WALK_MIN = 20                      # Ritz-Carlton down to the beach
@@ -78,10 +79,10 @@ def hours(t):
     return round(t.hour + t.minute / 60, 2)
 
 
-def horizon_for(today):
+def horizon_for(today, years=None):
     """4 years from today, extended so the last season is complete:
     through Aug 31 if that date falls in Mar-Aug, else through the end of February."""
-    base = date(today.year + YEARS_AHEAD, today.month, min(today.day, 28))
+    base = date(today.year + (years or YEARS_AHEAD), today.month, min(today.day, 28))
     if 3 <= base.month <= 8:
         return date(base.year, 8, 31)
     y = base.year + 1 if base.month >= 9 else base.year
@@ -118,10 +119,12 @@ def summer_lows(today):
         cands = []
         for t, v, kind in predictions(start, min(date(y, 8, 31), horizon), 'hilo'):
             rise, sset = sun(t.date())
-            if kind == 'L' and v < 0 and t.weekday() == 5 and rise + timedelta(minutes=SUMMER_AFTER_SUNRISE_MIN) <= t <= sset:
+            if kind == 'L' and v < 0 and t.weekday() in (5, 6) and rise + timedelta(minutes=SUMMER_AFTER_SUNRISE_MIN) <= t <= sset:
                 cands.append((v, t, rise))
+        sats = {t.date() for v, t, r in cands if t.weekday() == 5}
+        cands = [c for c in cands if c[1].weekday() == 5 or c[1].date() - timedelta(days=1) not in sats]  # Sunday only if Saturday has none
         for v, t, rise in sorted(cands)[:SUMMER_COUNT]:
-            s = dict(date=t.date().isoformat(), label=t.strftime('%a %b %-d, %Y'), summer=y,
+            s = dict(date=t.date().isoformat(), label=t.strftime('%a %b %-d, %Y'), summer=y, sunday=t.weekday() == 6,
                      low_ft=round(v, 2), low_time=clock(t), low_h=hours(t), sunrise=clock(rise),
                      days_away=(t.date() - today).days)
             pts = predictions(t.date(), t.date(), '6')
@@ -142,7 +145,7 @@ def build():
 
     saturdays, misses, minor = [], [], []
     for t, v in lows:
-        if t.date() < today or t.date() > horizon or t.weekday() != 5 or v >= 0:
+        if t.date() < today or t.date() > horizon or t.weekday() not in (5, 6) or v >= 0:
             continue
         rise, sset = sun(t.date())
         before_sunset = (sset - t).total_seconds() / 60
@@ -152,7 +155,9 @@ def build():
                     low_ft=round(v, 2), low_time=clock(t), low_h=hours(t),
                     sunrise=clock(rise), sunset=clock(sset), sunset_h=hours(sset),
                     minutes_before_sunset=round(before_sunset),
-                    days_away=(t.date() - today).days)
+                    days_away=(t.date() - today).days, sunday=t.weekday() == 6)
+        if info['sunday'] and not ok:
+            continue
         if ok and tier == 'minor':
             minor.append(info)
         elif ok:
@@ -161,6 +166,14 @@ def build():
             info['why'] = ('after dark' if before_sunset < 0 else 'right at sunset' if t.hour >= EARLIEST
                            else 'before sunrise' if t < rise else 'a morning low, not afternoon')
             misses.append(info)
+
+    # Sundays only count when that weekend's Saturday has nothing in either list
+    good_sats = {s['date'] for s in saturdays + minor if not s['sunday']}
+    keep = lambda s: not s['sunday'] or (date.fromisoformat(s['date']) - timedelta(days=1)).isoformat() not in good_sats
+    saturdays, minor = [s for s in saturdays if keep(s)], [s for s in minor if keep(s)]
+    short = horizon_for(today, SHORT_YEARS).isoformat()
+    minor = [s for s in minor if s['date'] <= short]
+    misses = [m for m in misses if m['date'] <= short]
 
     # Afternoon tide curves for the next few qualifying Saturdays (noon to an hour after sunset)
     for s in saturdays:
@@ -177,6 +190,7 @@ def build():
     return dict(
         generated=now.isoformat(), generated_local=now.strftime('%a %b %-d, %-I:%M %p'),
         horizon=horizon_for(today).strftime('%b %-d, %Y'),
+        short_horizon=horizon_for(today, SHORT_YEARS).strftime('%b %-d, %Y'),
         rule=dict(unicorn_ft=UNICORN_FT, almost_ft=ALMOST_FT, earliest=EARLIEST,
                   sunset_buffer_min=SUNSET_BUFFER_MIN, station=STATION),
         saturdays=saturdays, minor=minor, misses=[m for m in misses if m['date'] not in {x['date'] for x in summer}], summer=summer,
@@ -215,10 +229,11 @@ def main():
         if not kind or key in state['alerted']:
             continue
         name = 'Unicorn low tide' if s['tier'] == 'unicorn' else 'Almost-unicorn low tide'
-        when = 'tomorrow' if kind == 'tomorrow' else f"next Saturday, {s['label'][4:-6]}"
+        day = 'Sunday' if s['sunday'] else 'Saturday'
+        when = 'tomorrow' if kind == 'tomorrow' else f"next {day}, {s['label'][4:-6]}"
         subject = (f"{name} {when}! {s['low_ft']} ft at {s['low_time']}" if kind == 'tomorrow'
                    else f"Save the date: {name.lower()} {when}")
-        body = (f"Clear your Saturday. The tide drops to {s['low_ft']} ft at {s['low_time']} {when} "
+        body = (f"Clear your {day}. The tide drops to {s['low_ft']} ft at {s['low_time']} {when} "
                 f"at the Half Moon Bay tide pools. Sunset is {s['sunset']}.\n\n"
                 f"Leave San Francisco by {s['leave_sf']} to park at the Ritz-Carlton by {s['at_ritz']} and reach the beach "
                 f"at {s['below_zero']}, when the tide drops below zero. Then follow the water down. Bring boots, a headlamp for the walk back, "

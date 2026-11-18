@@ -104,6 +104,8 @@
   .misses li { display: flex; flex-wrap: wrap; gap: 2px 10px; }
   .misses b { font-weight: 600; }
   .misses .why { color: var(--muted); }
+  .misses .year { font-size: 12px; font-weight: 700; letter-spacing: .08em; color: var(--muted); padding-top: 6px; border-top: 1px solid var(--line); }
+  .misses .year:first-child { padding-top: 0; border-top: 0; }
 
   .summer-head { padding: 10px 18px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
     background: color-mix(in srgb, var(--bg) 70%, var(--surface)); border-bottom: 1px solid var(--line); }
@@ -176,7 +178,7 @@
 
   <section id="minor-section" hidden>
     <h2>Smaller minus tides</h2>
-    <p class="muted" style="margin:0 0 12px">Other Saturday afternoon lows between 0 and −0.75 ft, with the same daylight rule. Less reef exposed, but still good tide pooling.</p>
+    <p class="muted" style="margin:0 0 12px">Other Saturday afternoon lows between 0 and −0.75 ft for the next two years, with the same daylight rule. Less reef exposed, but still good tide pooling.</p>
     <div class="card"><ul class="misses" id="minor"></ul></div>
   </section>
 
@@ -221,6 +223,11 @@
       <ul>
         <li>Saturday lows between 0 and −0.75 ft that meet the same daylight rule as the unicorns: after noon and at least 30 minutes before sunset. Leave SF is timed the same way.</li>
       </ul>
+      <h3>Sundays and shorter lists</h3>
+      <ul>
+        <li>The page sticks to Saturdays, but a Sunday is added (tagged <b>Sunday</b>) when it has a qualifying minus tide and that weekend's Saturday doesn't.</li>
+        <li>Smaller minus tides and big lows that miss the light look 2 years ahead, grouped by year. Unicorn Saturdays and summer foraging tides look 4 years ahead.</li>
+      </ul>
       <h3>What the forecast can't see</h3>
       <ul>
         <li>Tide predictions don't include swell, wind or storms. A big swell can wash over the reef even on a minus tide, and low pressure can keep the water a little higher than predicted. Check the surf forecast the day before.</li>
@@ -252,6 +259,17 @@
   const tierName = (t) => (t === 'unicorn' ? 'Unicorn' : 'Almost unicorn');
   const hourLabel = (h) => (h === 12 ? 'noon' : h > 12 ? `${h - 12}pm` : `${h}am`);
 
+  // Group list items under a year heading
+  const byYear = (items, row) => {
+    let year = null;
+    return items.map((m) => {
+      const y = m.date.slice(0, 4);
+      const head = y !== year ? `<li class="year">${y}</li>` : '';
+      year = y;
+      return head + row(m);
+    }).join('');
+  };
+  const sundayTag = (s) => (s.sunday ? '<span class="badge almost" title="Saturday has no minus tide this weekend">Sunday</span>' : '');
   const chart = (s) => {
     const pts = s.curve;
     if (!pts || pts.length < 2) return '<div class="chart"></div>';
@@ -306,7 +324,7 @@
         <div class="sat ${s.tier}">
           <div class="cal"><b>${dow}</b><strong>${mon} ${day}</strong><small>${year}</small></div>
           <div class="what">
-            <div class="top"><span class="ft">${sign(s.low_ft)} ft</span><span class="badge ${s.tier}">${tierName(s.tier)}</span></div>
+            <div class="top"><span class="ft">${sign(s.low_ft)} ft</span><span class="badge ${s.tier}">${tierName(s.tier)}</span>${sundayTag(s)}</div>
             <div class="facts">
               <span title="Low tide">${ICON.low}Low <b>${s.low_time}</b></span>
               <span title="Sunset">${ICON.sunset}Sunset <b>${s.sunset}</b></span>
@@ -330,7 +348,7 @@
           <div class="sat summer">
             <div class="cal"><b>${dow}</b><strong>${mon} ${day}</strong><small>${yr}</small></div>
             <div class="what">
-              <div class="top"><span class="ft">${sign(s.low_ft)} ft</span></div>
+              <div class="top"><span class="ft">${sign(s.low_ft)} ft</span>${sundayTag(s)}</div>
               <div class="facts">
                 <span title="Low tide">${ICON.low}Low <b>${s.low_time}</b></span>
                 <span title="Sunrise">${ICON.sunrise}Sunrise <b>${s.sunrise}</b></span>
@@ -346,15 +364,15 @@
 
       const minor = data.minor || [];
       if (minor.length) {
-        document.getElementById('minor').innerHTML = minor.map((m) =>
-          `<li><b>${m.label}</b><span>${sign(m.low_ft)} ft at ${m.low_time}</span><span class="why">sunset ${m.sunset} · Leave SF ${m.leave_sf}</span></li>`).join('');
+        document.getElementById('minor').innerHTML = byYear(minor, (m) =>
+          `<li><b>${m.label}</b><span>${sign(m.low_ft)} ft at ${m.low_time}</span><span class="why">sunset ${m.sunset} · Leave SF ${m.leave_sf}</span>${sundayTag(m)}</li>`);
         document.getElementById('minor-section').hidden = false;
       }
 
       const misses = data.misses || [];
       if (misses.length) {
-        document.getElementById('misses').innerHTML = misses.map((m) =>
-          `<li><b>${m.label}</b><span>${sign(m.low_ft)} ft at ${m.low_time}</span><span class="why">${m.why}${m.why === 'after dark' || m.why === 'right at sunset' ? ` (sunset ${m.sunset})` : ` (sunrise ${m.sunrise})`}</span></li>`).join('');
+        document.getElementById('misses').innerHTML = byYear(misses, (m) =>
+          `<li><b>${m.label}</b><span>${sign(m.low_ft)} ft at ${m.low_time}</span><span class="why">${m.why}${m.why === 'after dark' || m.why === 'right at sunset' ? ` (sunset ${m.sunset})` : ` (sunrise ${m.sunrise})`}</span></li>`);
         document.getElementById('misses-section').hidden = false;
       }
       document.getElementById('updated').textContent = `Updated ${data.generated_local} Pacific. Showing tides through ${data.horizon}. Checks run every morning.`;
