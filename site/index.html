@@ -26,11 +26,6 @@
       --sea: #5cc0c6; --sea-soft: #173a3d; --star: #f2875f; --star-soft: #3d241b; --night: #2b3a44;
     }
   }
-  /* Theme previews (?theme=kelp etc.); light colors only */
-  :root[data-palette="kelp"] { --bg:#eef1ea; --surface:#fbfcf8; --ink:#1d2b22; --muted:#5d6b60; --line:#d9e0d3; --sea:#3f6b4a; --sea-soft:#dce8da; --star:#c48a1e; --star-soft:#f5e7c8; --night:#c6cdc4; }
-  :root[data-palette="anemone"] { --bg:#f5eff4; --surface:#fffcfe; --ink:#2a2233; --muted:#6c6274; --line:#e6dbe6; --sea:#6a4c8c; --sea-soft:#ebe1f2; --star:#d6457a; --star-soft:#f9dde8; --night:#d0c8d6; }
-  :root[data-palette="dusk"] { --bg:#1b2130; --surface:#242c3c; --ink:#f1ece4; --muted:#a6acb9; --line:#343d50; --sea:#8fb7d6; --sea-soft:#2e3a50; --star:#f4a259; --star-soft:#4a3626; --night:#10151f; }
-  :root[data-palette="mussel"] { --bg:#eceef1; --surface:#ffffff; --ink:#20262e; --muted:#636d78; --line:#d6dbe1; --sea:#34506e; --sea-soft:#dde4ec; --star:#ec7a1c; --star-soft:#fbe4cf; --night:#cdd3da; }
   * { box-sizing: border-box; }
   body {
     margin: 0; background: var(--bg); color: var(--ink);
@@ -214,8 +209,6 @@
 </main>
 
 <script>
-  const theme = new URLSearchParams(location.search).get('theme');
-  if (theme) document.documentElement.dataset.palette = theme;
   const svg = (d) => `<svg class="i" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
   const ICON = {
     low: svg('<path d="M8 2.5v9"/><path d="M4.5 8.5L8 12l3.5-3.5"/><path d="M2 14h12"/>'),
