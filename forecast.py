@@ -32,7 +32,6 @@ DRIVE_MIN = 60                     # San Francisco to the Ritz-Carlton parking
 WALK_MIN = 20                      # Ritz-Carlton down to the beach
 SUMMER_AFTER_SUNRISE_MIN = 0       # summer lows: any time after sunrise
 SUMMER_COUNT = 4                   # lowest N daylight lows per summer
-SUMMER_ARRIVE_BEFORE_LOW_MIN = 60  # summer: on the beach an hour before the low (tide is already negative by then)
 UA = {'User-Agent': '(unicorn-tides alert, personal project)'}
 API = 'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter'
 
@@ -128,7 +127,7 @@ def summer_lows(today):
             pts = predictions(t.date(), t.date(), '6')
             s['sunrise_h'] = hours(rise)
             s['curve'] = [[hours(p), round(pv, 2)] for p, pv, _ in pts if 3 <= hours(p) <= 13 and p.minute % 30 == 0]
-            add_travel(s, pts, not_before=max(rise, t - timedelta(minutes=SUMMER_ARRIVE_BEFORE_LOW_MIN)))
+            add_travel(s, pts, not_before=rise)
             out.append(s)
     return sorted(out, key=lambda s: s['date'])
 
