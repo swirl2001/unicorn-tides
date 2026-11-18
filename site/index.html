@@ -283,7 +283,7 @@
         if (next.days_away <= 7) hero.classList.add('go');
         document.getElementById('hero-title').innerHTML = `Next up: ${next.label} <span class="badge ${next.tier}">${tierName(next.tier)}</span>`;
         document.getElementById('hero-text').innerHTML =
-          `Low of <b>${sign(next.low_ft)} ft at ${next.low_time}</b>, sunset ${next.sunset}.<br><b>Leave SF by ${next.leave_sf}</b>. Park at the Ritz-Carlton by ${next.at_ritz} and reach the beach at ${next.below_zero}, as the tide drops below 0 ft.`;
+          `Low of <b>${sign(next.low_ft)} ft at ${next.low_time}</b>, sunset ${next.sunset}.<br><b>Head out at ${next.leave_sf}</b>.`;
         if (nextUnicorn && nextUnicorn !== next)
           document.getElementById('hero-next').innerHTML = `Next full unicorn: <b>${nextUnicorn.label}</b>, ${sign(nextUnicorn.low_ft)} ft at ${nextUnicorn.low_time}.`;
       } else {
