@@ -97,11 +97,11 @@ def add_travel(s, pts, not_before=None):
 
 
 def summer_lows(today):
-    """The lowest daylight tides of each of the next two summers (May-Aug), Saturdays only,
+    """The lowest daylight tides of each summer (May-Aug) through YEARS_AHEAD, Saturdays only,
     at least SUMMER_AFTER_SUNRISE_MIN after sunrise. For seaweed foraging and poke poling."""
     out = []
     year = today.year if today < date(today.year, 8, 31) else today.year + 1
-    for y in (year, year + 1):
+    for y in range(year, today.year + YEARS_AHEAD + 1):   # through the same year as the Saturday list
         start = max(date(y, 5, 1), today)
         cands = []
         for t, v, kind in predictions(start, date(y, 8, 31), 'hilo'):
