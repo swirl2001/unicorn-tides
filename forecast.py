@@ -79,6 +79,16 @@ def hours(t):
     return round(t.hour + t.minute / 60, 2)
 
 
+def horizon_for(today):
+    """4 years from today, extended so the last season is complete:
+    through Aug 31 if that date falls in Mar-Aug, else through the end of February."""
+    base = date(today.year + YEARS_AHEAD, today.month, min(today.day, 28))
+    if 3 <= base.month <= 8:
+        return date(base.year, 8, 31)
+    y = base.year + 1 if base.month >= 9 else base.year
+    return date(y, 3, 1) - timedelta(days=1)
+
+
 def add_travel(s, pts, not_before=None):
     """Be on the beach when the falling tide drops below 0 ft (interpolated between 6-minute points),
     or at not_before (sunrise) if that's later."""
@@ -101,7 +111,7 @@ def summer_lows(today):
     at least SUMMER_AFTER_SUNRISE_MIN after sunrise. For seaweed foraging and poke poling."""
     out = []
     year = today.year if today < date(today.year, 8, 31) else today.year + 1
-    horizon = date(today.year + YEARS_AHEAD, today.month, min(today.day, 28))
+    horizon = horizon_for(today)
     for y in range(year, horizon.year + 1):
         if date(y, 5, 1) > horizon:
             break
@@ -127,7 +137,7 @@ def build():
     now = datetime.now(PT)
     today = now.date()
     lows = []
-    horizon = date(today.year + YEARS_AHEAD, today.month, min(today.day, 28))
+    horizon = horizon_for(today)
     for y in range(today.year, horizon.year + 1):
         lows += [(t, v) for t, v, kind in predictions(date(y, 1, 1), date(y, 12, 31), 'hilo') if kind == 'L']
 
@@ -162,7 +172,7 @@ def build():
     summer = summer_lows(today)
     return dict(
         generated=now.isoformat(), generated_local=now.strftime('%a %b %-d, %-I:%M %p'),
-        horizon=date(today.year + YEARS_AHEAD, today.month, min(today.day, 28)).strftime('%b %-d, %Y'),
+        horizon=horizon_for(today).strftime('%b %-d, %Y'),
         rule=dict(unicorn_ft=UNICORN_FT, almost_ft=ALMOST_FT, earliest=EARLIEST,
                   sunset_buffer_min=SUNSET_BUFFER_MIN, station=STATION),
         saturdays=saturdays, misses=[m for m in misses if m['date'] not in {x['date'] for x in summer}], summer=summer,
