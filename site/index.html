@@ -61,6 +61,7 @@
     padding: 2px 8px; border-radius: 99px; vertical-align: middle; white-space: nowrap; }
   .badge.unicorn { background: var(--star); color: var(--on-star); }
   .badge.almost { background: var(--sea-soft); color: var(--sea); }
+  .badge.seahorse { background: var(--sea); color: var(--surface); }   /* weekday version of a unicorn */
 
   section { margin-top: 40px; }
   section h2 { font-size: 20px; margin: 0 0 10px; letter-spacing: -0.01em; }
@@ -263,7 +264,7 @@
       </ul>
       <h3>Pick a weekday</h3>
       <ul>
-        <li>Shows every unicorn (−1.0 ft or lower) and almost-unicorn (−0.75 ft or lower) low tide on the weekday you pick, 4 years ahead. The low has to come after the time you choose (and after sunrise) and at least 30 minutes before sunset.</li>
+        <li>Weekday lows get their own names: a <b>seahorse</b> is −1.0 ft or lower and an <b>almost seahorse</b> is −0.75 ft or lower, the same cutoffs as a unicorn. The list covers the weekday you pick, 4 years ahead. The low has to come after the time you choose (and after sunrise) and at least 30 minutes before sunset.</li>
         <li>Leave SF and the small tide charts use a smooth curve between NOAA's high and low tide predictions, within a couple of minutes of NOAA's detailed curve. It gets you to the beach as the tide drops below 0 ft, or at sunrise if that's later.</li>
         <li>Your choice is saved in this browser and in the page link, so you can share a link with your day already picked. Email reminders still cover Saturdays only.</li>
       </ul>
@@ -331,13 +332,13 @@
       const a = after.value;
       const list = document.getElementById('custom-list');
       const count = document.getElementById('custom-count');
-      if (i < 0) { count.textContent = 'Pick a weekday to see its unicorn low tides.'; list.hidden = true; }
+      if (i < 0) { count.textContent = 'Pick a weekday to see its seahorse low tides.'; list.hidden = true; }
       else {
         const rows = all.filter((x) => x.dow === i && (a === 'sunrise' || x.low_h >= Number(a)));
         const u = rows.filter((x) => x.tier === 'unicorn').length;
         count.textContent = rows.length
-          ? `${DAY_FULL[i]}: ${rows.length} low tide${rows.length > 1 ? 's' : ''} in the next 4 years (${u} unicorn${u === 1 ? '' : 's'}).`
-          : `No unicorn or almost-unicorn low tides on ${DAY_FULL[i]} in the next 4 years. Try an earlier time.`;
+          ? `${DAY_FULL[i]}: ${rows.length} low tide${rows.length > 1 ? 's' : ''} in the next 4 years (${u} seahorse${u === 1 ? '' : 's'}).`
+          : `No seahorse or almost-seahorse low tides on ${DAY_FULL[i]} in the next 4 years. Try an earlier time.`;
         let year = null;
         list.innerHTML = rows.map((m) => {
           const [dow, mon, dd, yr] = m.label.replace(',', '').split(' ');
@@ -350,7 +351,7 @@
           <div class="sat ${m.tier}">
             <div class="cal"><b>${dow}</b><strong>${mon} ${dd}</strong><small>${yr}</small></div>
             <div class="what">
-              <div class="top"><span class="ft">${sign(m.low_ft)} ft</span><span class="badge ${m.tier}">${tierName(m.tier)}</span></div>
+              <div class="top"><span class="ft">${sign(m.low_ft)} ft</span><span class="badge ${m.tier === 'unicorn' ? 'seahorse' : 'almost'}">${m.tier === 'unicorn' ? 'Seahorse' : 'Almost seahorse'}</span></div>
               <div class="facts">
                 <span title="Low tide">${ICON.low}Low <b>${m.low_time}</b></span>
                 ${sunFact}
