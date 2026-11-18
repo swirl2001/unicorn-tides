@@ -30,6 +30,9 @@ SUNSET_BUFFER_MIN = 30             # low at least this long before sunset
 YEARS_AHEAD = 4
 DRIVE_MIN = 60                     # San Francisco to the Ritz-Carlton parking
 WALK_MIN = 20                      # Ritz-Carlton down to the beach
+SUMMER_AFTER_SUNRISE_MIN = 30      # summer lows: at least this long after sunrise
+SUMMER_COUNT = 4                   # lowest N daylight lows per summer
+SUMMER_ARRIVE_BEFORE_LOW_MIN = 60  # summer: on the beach an hour before the low (tide is already negative by then)
 UA = {'User-Agent': '(unicorn-tides alert, personal project)'}
 API = 'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter'
 
@@ -76,6 +79,44 @@ def hours(t):
     return round(t.hour + t.minute / 60, 2)
 
 
+def add_travel(s, pts, not_before=None):
+    """Be on the beach when the falling tide drops below 0 ft (interpolated between 6-minute points),
+    or at not_before (sunrise) if that's later."""
+    falling = [(t, v) for t, v, _ in pts if hours(t) <= s['low_h']]
+    cross = falling[0][0]
+    for (t0, v0), (t1, v1) in zip(falling, falling[1:]):
+        if v0 >= 0 > v1:
+            cross = t0 + (t1 - t0) * (v0 / (v0 - v1))
+    if not_before and cross < not_before:
+        cross = not_before
+    cross = cross.replace(second=0, microsecond=0)
+    s['below_zero'] = clock(cross)
+    s['below_zero_h'] = hours(cross)
+    s['at_ritz'] = clock(cross - timedelta(minutes=WALK_MIN))
+    s['leave_sf'] = clock(cross - timedelta(minutes=DRIVE_MIN + WALK_MIN))
+
+
+def summer_lows(today):
+    """The lowest daylight tides of each of the next two summers (May-Aug), any day of the week,
+    at least SUMMER_AFTER_SUNRISE_MIN after sunrise. For seaweed foraging and poke poling."""
+    out = []
+    year = today.year if today < date(today.year, 8, 31) else today.year + 1
+    for y in (year, year + 1):
+        start = max(date(y, 5, 1), today)
+        cands = []
+        for t, v, kind in predictions(start, date(y, 8, 31), 'hilo'):
+            rise, sset = sun(t.date())
+            if kind == 'L' and rise + timedelta(minutes=SUMMER_AFTER_SUNRISE_MIN) <= t <= sset:
+                cands.append((v, t, rise))
+        for v, t, rise in sorted(cands)[:SUMMER_COUNT]:
+            s = dict(date=t.date().isoformat(), label=t.strftime('%a %b %-d, %Y'), summer=y,
+                     low_ft=round(v, 2), low_time=clock(t), low_h=hours(t), sunrise=clock(rise),
+                     days_away=(t.date() - today).days)
+            add_travel(s, predictions(t.date(), t.date(), '6'), not_before=max(rise, t - timedelta(minutes=SUMMER_ARRIVE_BEFORE_LOW_MIN)))
+            out.append(s)
+    return sorted(out, key=lambda s: s['date'])
+
+
 def build():
     now = datetime.now(PT)
     today = now.date()
@@ -109,23 +150,13 @@ def build():
         pts = predictions(d, d, '6')
         s['curve'] = [[hours(t), round(v, 2)] for t, v, _ in pts
                       if 11 <= hours(t) <= s['sunset_h'] + 1.5 and t.minute % 30 == 0]
-        # Be on the beach when the falling tide drops below 0 ft (interpolated between 6-minute points)
-        falling = [(t, v) for t, v, _ in pts if hours(t) <= s['low_h']]
-        cross = falling[0][0]
-        for (t0, v0), (t1, v1) in zip(falling, falling[1:]):
-            if v0 >= 0 > v1:
-                cross = t0 + (t1 - t0) * (v0 / (v0 - v1))
-        cross = cross.replace(second=0, microsecond=0)
-        s['below_zero'] = clock(cross)
-        s['below_zero_h'] = hours(cross)
-        s['at_ritz'] = clock(cross - timedelta(minutes=WALK_MIN))
-        s['leave_sf'] = clock(cross - timedelta(minutes=DRIVE_MIN + WALK_MIN))
+        add_travel(s, pts)
 
     return dict(
         generated=now.isoformat(), generated_local=now.strftime('%a %b %-d, %-I:%M %p'),
         rule=dict(unicorn_ft=UNICORN_FT, almost_ft=ALMOST_FT, earliest=EARLIEST,
                   sunset_buffer_min=SUNSET_BUFFER_MIN, station=STATION),
-        saturdays=saturdays, misses=misses,
+        saturdays=saturdays, misses=misses, summer=summer_lows(today),
     )
 
 
