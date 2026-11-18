@@ -97,7 +97,7 @@ def add_travel(s, pts, not_before=None):
 
 
 def summer_lows(today):
-    """The lowest daylight tides of each of the next two summers (May-Aug), Saturdays and Sundays only,
+    """The lowest daylight tides of each of the next two summers (May-Aug), Saturdays only,
     at least SUMMER_AFTER_SUNRISE_MIN after sunrise. For seaweed foraging and poke poling."""
     out = []
     year = today.year if today < date(today.year, 8, 31) else today.year + 1
@@ -106,13 +106,16 @@ def summer_lows(today):
         cands = []
         for t, v, kind in predictions(start, date(y, 8, 31), 'hilo'):
             rise, sset = sun(t.date())
-            if kind == 'L' and t.weekday() >= 5 and rise + timedelta(minutes=SUMMER_AFTER_SUNRISE_MIN) <= t <= sset:
+            if kind == 'L' and v < 0 and t.weekday() == 5 and rise + timedelta(minutes=SUMMER_AFTER_SUNRISE_MIN) <= t <= sset:
                 cands.append((v, t, rise))
         for v, t, rise in sorted(cands)[:SUMMER_COUNT]:
             s = dict(date=t.date().isoformat(), label=t.strftime('%a %b %-d, %Y'), summer=y,
                      low_ft=round(v, 2), low_time=clock(t), low_h=hours(t), sunrise=clock(rise),
                      days_away=(t.date() - today).days)
-            add_travel(s, predictions(t.date(), t.date(), '6'), not_before=max(rise, t - timedelta(minutes=SUMMER_ARRIVE_BEFORE_LOW_MIN)))
+            pts = predictions(t.date(), t.date(), '6')
+            s['sunrise_h'] = hours(rise)
+            s['curve'] = [[hours(p), round(pv, 2)] for p, pv, _ in pts if 3 <= hours(p) <= 13 and p.minute % 30 == 0]
+            add_travel(s, pts, not_before=max(rise, t - timedelta(minutes=SUMMER_ARRIVE_BEFORE_LOW_MIN)))
             out.append(s)
     return sorted(out, key=lambda s: s['date'])
 

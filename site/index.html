@@ -105,7 +105,6 @@
   .misses b { font-weight: 600; }
   .misses .why { color: var(--muted); }
 
-  .sat.summer { grid-template-columns: 72px 1fr; }
   .summer-head { padding: 10px 18px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
     background: color-mix(in srgb, var(--bg) 70%, var(--surface)); border-bottom: 1px solid var(--line); }
   .rules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 14px 0; }
@@ -182,8 +181,13 @@
 
   <section id="summer-section" hidden>
     <h2>Summer foraging tides</h2>
-    <p class="muted" style="margin:0 0 12px">The lowest weekend daylight tides of summer. They come early in the morning, which makes them good for seaweed foraging and poke poling.</p>
+    <p class="muted" style="margin:0 0 12px">The lowest Saturday daylight tides of summer. They come early in the morning, which makes them good for seaweed foraging and poke poling.</p>
     <div class="list" id="summer"></div>
+    <p class="key">
+      <span><i style="background:color-mix(in srgb, var(--sea) 30%, transparent)"></i>Tide, early morning</span>
+      <span><i style="background:var(--night)"></i>Before sunrise</span>
+      <span><i style="border-top:1px dashed var(--muted);height:0;border-radius:0"></i>0 ft</span>
+    </p>
   </section>
 
   <section class="notes">
@@ -203,7 +207,7 @@
       </ul>
       <h3>Summer foraging tides</h3>
       <ul>
-        <li>The 4 lowest tides of each summer (May–August) that fall on a Saturday or Sunday and come at least 30 minutes after sunrise.</li>
+        <li>The 4 lowest tides of each summer (May–August) that fall on a Saturday, drop below 0 ft and come at least 30 minutes after sunrise.</li>
         <li><b>Leave SF</b> gets you to the beach about an hour before the low, or at sunrise if that's later. The tide is already below 0 ft by then.</li>
         <li>Seaweed harvesting and poke poling need a California fishing license, with daily limits. Taking anything is banned in marine protected areas, including Fitzgerald Marine Reserve, so check the rules for where you go.</li>
       </ul>
@@ -241,7 +245,10 @@
   const chart = (s) => {
     const pts = s.curve;
     if (!pts || pts.length < 2) return '<div class="chart"></div>';
-    const x0 = 12, x1 = Math.ceil(s.sunset_h + 1.5);
+    // Winter afternoons: noon to past sunset, dark after sunset. Summer mornings: before sunrise to late morning, dark before sunrise.
+    const morning = s.sunrise_h != null;
+    const x0 = morning ? Math.floor(s.sunrise_h - 1.5) : 12;
+    const x1 = morning ? x0 + 8 : Math.ceil(s.sunset_h + 1.5);
     const vs = pts.map((p) => p[1]);
     const yMin = Math.min(-1.5, ...vs), yMax = Math.max(4, ...vs);
     const X = (h) => ((h - x0) / (x1 - x0)) * 100, Y = (v) => 4 + (1 - (v - yMin) / (yMax - yMin)) * 52;
@@ -251,8 +258,10 @@
     const ticks = [];
     for (let h = x0; h <= x1; h += 2) ticks.push(`<span>${hourLabel(h)}</span>`);
     return `<div class="chart"><div class="chart-wrap">
-      <svg viewBox="0 0 100 60" preserveAspectRatio="none" role="img" aria-label="Afternoon tide curve, low ${sign(s.low_ft)} feet at ${s.low_time}, sunset ${s.sunset}">
-        <rect class="night" x="${X(s.sunset_h).toFixed(2)}" y="0" width="${(100 - X(s.sunset_h)).toFixed(2)}" height="60"/>
+      <svg viewBox="0 0 100 60" preserveAspectRatio="none" role="img" aria-label="Tide curve, low ${sign(s.low_ft)} feet at ${s.low_time}, ${morning ? `sunrise ${s.sunrise}` : `sunset ${s.sunset}`}">
+        ${morning
+          ? `<rect class="night" x="0" y="0" width="${X(s.sunrise_h).toFixed(2)}" height="60"/>`
+          : `<rect class="night" x="${X(s.sunset_h).toFixed(2)}" y="0" width="${(100 - X(s.sunset_h)).toFixed(2)}" height="60"/>`}
         <path class="area" d="${area}"/><path class="line" d="${line}"/>
         <line class="zero" x1="0" x2="100" y1="${Y(0).toFixed(2)}" y2="${Y(0).toFixed(2)}"/>
       </svg>
@@ -319,6 +328,7 @@
                 <span class="away">${away(s.days_away)}</span>
               </div>
             </div>
+            ${chart(s)}
           </div>`;
         }).join('');
         document.getElementById('summer-section').hidden = false;
