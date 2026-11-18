@@ -140,20 +140,22 @@ def build():
     for y in range(today.year, horizon.year + 1):
         lows += [(t, v) for t, v, kind in predictions(date(y, 1, 1), date(y, 12, 31), 'hilo') if kind == 'L']
 
-    saturdays, misses = [], []
+    saturdays, misses, minor = [], [], []
     for t, v in lows:
-        if t.date() < today or t.date() > horizon or t.weekday() != 5 or v > ALMOST_FT:
+        if t.date() < today or t.date() > horizon or t.weekday() != 5 or v >= 0:
             continue
         rise, sset = sun(t.date())
         before_sunset = (sset - t).total_seconds() / 60
         ok = t.hour >= EARLIEST and before_sunset >= SUNSET_BUFFER_MIN
-        tier = 'unicorn' if v <= UNICORN_FT else 'almost'
+        tier = 'unicorn' if v <= UNICORN_FT else 'almost' if v <= ALMOST_FT else 'minor'
         info = dict(date=t.date().isoformat(), label=t.strftime('%a %b %-d, %Y'), tier=tier,
                     low_ft=round(v, 2), low_time=clock(t), low_h=hours(t),
                     sunrise=clock(rise), sunset=clock(sset), sunset_h=hours(sset),
                     minutes_before_sunset=round(before_sunset),
                     days_away=(t.date() - today).days)
-        if ok:
+        if ok and tier == 'minor':
+            minor.append(info)
+        elif ok:
             saturdays.append(info)
         elif tier == 'unicorn':
             info['why'] = ('after dark' if before_sunset < 0 else 'right at sunset' if t.hour >= EARLIEST
@@ -167,6 +169,9 @@ def build():
         s['curve'] = [[hours(t), round(v, 2)] for t, v, _ in pts
                       if 11 <= hours(t) <= s['sunset_h'] + 1.5 and t.minute % 30 == 0]
         add_travel(s, pts)
+    for s in minor:  # smaller afternoon minus tides (0 to -0.75 ft): just the Leave SF time
+        d = date.fromisoformat(s['date'])
+        add_travel(s, predictions(d, d, '6'))
 
     summer = summer_lows(today)
     return dict(
@@ -174,7 +179,7 @@ def build():
         horizon=horizon_for(today).strftime('%b %-d, %Y'),
         rule=dict(unicorn_ft=UNICORN_FT, almost_ft=ALMOST_FT, earliest=EARLIEST,
                   sunset_buffer_min=SUNSET_BUFFER_MIN, station=STATION),
-        saturdays=saturdays, misses=[m for m in misses if m['date'] not in {x['date'] for x in summer}], summer=summer,
+        saturdays=saturdays, minor=minor, misses=[m for m in misses if m['date'] not in {x['date'] for x in summer}], summer=summer,
     )
 
 
