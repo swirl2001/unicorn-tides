@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-24T15:52:03.693213-08:00",
- "generated_local": "Tue Nov 24, 3:52 PM",
+ "generated": "2026-11-25T15:35:51.485043-08:00",
+ "generated_local": "Wed Nov 25, 3:35 PM",
  "horizon": "Feb 28, 2031",
  "short_horizon": "Feb 28, 2029",
  "rule": {
@@ -86,7 +86,7 @@
    "sunrise": "7:10 am",
    "sunset": "4:52 pm",
    "leave_sf": "1:05 pm",
-   "days_away": 13
+   "days_away": 12
   },
   {
    "curve": [
@@ -163,7 +163,7 @@
    "sunrise": "7:20 am",
    "sunset": "4:54 pm",
    "leave_sf": "11:38 am",
-   "days_away": 27
+   "days_away": 26
   },
   {
    "curve": [
@@ -240,7 +240,7 @@
    "sunrise": "7:20 am",
    "sunset": "4:55 pm",
    "leave_sf": "12:06 pm",
-   "days_away": 28
+   "days_away": 27
   },
   {
    "curve": [
@@ -317,7 +317,7 @@
    "sunrise": "7:21 am",
    "sunset": "4:55 pm",
    "leave_sf": "12:46 pm",
-   "days_away": 29
+   "days_away": 28
   },
   {
    "curve": [
@@ -394,7 +394,7 @@
    "sunrise": "7:21 am",
    "sunset": "5:17 pm",
    "leave_sf": "11:21 am",
-   "days_away": 56
+   "days_away": 55
   },
   {
    "curve": [
@@ -471,7 +471,7 @@
    "sunrise": "7:21 am",
    "sunset": "5:18 pm",
    "leave_sf": "11:56 am",
-   "days_away": 57
+   "days_away": 56
   },
   {
    "curve": [
@@ -548,7 +548,7 @@
    "sunrise": "7:20 am",
    "sunset": "5:19 pm",
    "leave_sf": "12:40 pm",
-   "days_away": 58
+   "days_away": 57
   },
   {
    "curve": [
@@ -625,7 +625,7 @@
    "sunrise": "7:20 am",
    "sunset": "5:21 pm",
    "leave_sf": "1:29 pm",
-   "days_away": 59
+   "days_away": 58
   },
   {
    "curve": [
@@ -710,7 +710,7 @@
    "sunrise": "6:57 am",
    "sunset": "5:50 pm",
    "leave_sf": "11:13 am",
-   "days_away": 85
+   "days_away": 84
   },
   {
    "curve": [
@@ -795,7 +795,7 @@
    "sunrise": "6:56 am",
    "sunset": "5:51 pm",
    "leave_sf": "11:54 am",
-   "days_away": 86
+   "days_away": 85
   },
   {
    "curve": [
@@ -880,7 +880,7 @@
    "sunrise": "6:55 am",
    "sunset": "5:52 pm",
    "leave_sf": "12:41 pm",
-   "days_away": 87
+   "days_away": 86
   },
   {
    "curve": [
@@ -965,7 +965,7 @@
    "sunrise": "6:26 am",
    "sunset": "7:49 pm",
    "leave_sf": "5:06 am",
-   "days_away": 149
+   "days_away": 148
   },
   {
    "curve": [
@@ -1050,7 +1050,7 @@
    "sunrise": "6:08 am",
    "sunset": "8:03 pm",
    "leave_sf": "4:48 am",
-   "days_away": 164
+   "days_away": 163
   },
   {
    "curve": [
@@ -1135,7 +1135,7 @@
    "sunrise": "6:05 am",
    "sunset": "8:06 pm",
    "leave_sf": "5:21 am",
-   "days_away": 167
+   "days_away": 166
   },
   {
    "curve": [
@@ -1220,7 +1220,7 @@
    "sunrise": "6:04 am",
    "sunset": "8:06 pm",
    "leave_sf": "6:31 am",
-   "days_away": 168
+   "days_away": 167
   },
   {
    "curve": [
@@ -1305,7 +1305,7 @@
    "sunrise": "5:56 am",
    "sunset": "8:15 pm",
    "leave_sf": "4:36 am",
-   "days_away": 178
+   "days_away": 177
   },
   {
    "curve": [
@@ -1390,7 +1390,7 @@
    "sunrise": "5:48 am",
    "sunset": "8:27 pm",
    "leave_sf": "4:28 am",
-   "days_away": 195
+   "days_away": 194
   },
   {
    "curve": [
@@ -1475,7 +1475,7 @@
    "sunrise": "5:48 am",
    "sunset": "8:28 pm",
    "leave_sf": "5:02 am",
-   "days_away": 196
+   "days_away": 195
   },
   {
    "curve": [
@@ -1560,7 +1560,7 @@
    "sunrise": "5:48 am",
    "sunset": "8:28 pm",
    "leave_sf": "6:14 am",
-   "days_away": 197
+   "days_away": 196
   },
   {
    "curve": [
@@ -1645,7 +1645,7 @@
    "sunrise": "5:53 am",
    "sunset": "8:34 pm",
    "leave_sf": "4:33 am",
-   "days_away": 223
+   "days_away": 222
   },
   {
    "curve": [
@@ -1730,7 +1730,7 @@
    "sunrise": "5:54 am",
    "sunset": "8:34 pm",
    "leave_sf": "4:34 am",
-   "days_away": 224
+   "days_away": 223
   },
   {
    "curve": [
@@ -1815,7 +1815,7 @@
    "sunrise": "5:54 am",
    "sunset": "8:33 pm",
    "leave_sf": "5:01 am",
-   "days_away": 225
+   "days_away": 224
   },
   {
    "curve": [
@@ -1900,7 +1900,7 @@
    "sunrise": "7:30 am",
    "sunset": "6:16 pm",
    "leave_sf": "2:31 pm",
-   "days_away": 339
+   "days_away": 338
   },
   {
    "curve": [
@@ -1977,7 +1977,7 @@
    "sunrise": "7 am",
    "sunset": "4:54 pm",
    "leave_sf": "12:31 pm",
-   "days_away": 367
+   "days_away": 366
   },
   {
    "curve": [
@@ -2054,7 +2054,7 @@
    "sunrise": "7:24 am",
    "sunset": "5:08 pm",
    "leave_sf": "12:22 pm",
-   "days_away": 412
+   "days_away": 411
   },
   {
    "curve": [
@@ -2131,7 +2131,7 @@
    "sunrise": "7:23 am",
    "sunset": "5:09 pm",
    "leave_sf": "1 pm",
-   "days_away": 413
+   "days_away": 412
   },
   {
    "curve": [
@@ -2216,7 +2216,7 @@
    "sunrise": "7:08 am",
    "sunset": "5:38 pm",
    "leave_sf": "11:37 am",
-   "days_away": 440
+   "days_away": 439
   },
   {
    "curve": [
@@ -2301,7 +2301,7 @@
    "sunrise": "7:07 am",
    "sunset": "5:40 pm",
    "leave_sf": "12:10 pm",
-   "days_away": 441
+   "days_away": 440
   },
   {
    "curve": [
@@ -2386,7 +2386,7 @@
    "sunrise": "7:06 am",
    "sunset": "5:41 pm",
    "leave_sf": "12:52 pm",
-   "days_away": 442
+   "days_away": 441
   },
   {
    "curve": [
@@ -2471,7 +2471,7 @@
    "sunrise": "7:05 am",
    "sunset": "5:42 pm",
    "leave_sf": "1:42 pm",
-   "days_away": 443
+   "days_away": 442
   },
   {
    "curve": [
@@ -2556,7 +2556,7 @@
    "sunrise": "6:40 am",
    "sunset": "7:41 pm",
    "leave_sf": "5:20 am",
-   "days_away": 504
+   "days_away": 503
   },
   {
    "curve": [
@@ -2641,7 +2641,7 @@
    "sunrise": "6:39 am",
    "sunset": "7:41 pm",
    "leave_sf": "5:19 am",
-   "days_away": 505
+   "days_away": 504
   },
   {
    "curve": [
@@ -2726,7 +2726,7 @@
    "sunrise": "6:19 am",
    "sunset": "7:55 pm",
    "leave_sf": "4:59 am",
-   "days_away": 520
+   "days_away": 519
   },
   {
    "curve": [
@@ -2811,7 +2811,7 @@
    "sunrise": "6:04 am",
    "sunset": "8:06 pm",
    "leave_sf": "4:44 am",
-   "days_away": 533
+   "days_away": 532
   },
   {
    "curve": [
@@ -2896,7 +2896,7 @@
    "sunrise": "6:03 am",
    "sunset": "8:07 pm",
    "leave_sf": "4:43 am",
-   "days_away": 534
+   "days_away": 533
   },
   {
    "curve": [
@@ -2981,7 +2981,7 @@
    "sunrise": "6:03 am",
    "sunset": "8:08 pm",
    "leave_sf": "5:11 am",
-   "days_away": 535
+   "days_away": 534
   },
   {
    "curve": [
@@ -3066,7 +3066,7 @@
    "sunrise": "5:53 am",
    "sunset": "8:19 pm",
    "leave_sf": "4:33 am",
-   "days_away": 548
+   "days_away": 547
   },
   {
    "curve": [
@@ -3151,7 +3151,7 @@
    "sunrise": "5:52 am",
    "sunset": "8:20 pm",
    "leave_sf": "4:32 am",
-   "days_away": 549
+   "days_away": 548
   },
   {
    "curve": [
@@ -3236,7 +3236,7 @@
    "sunrise": "5:48 am",
    "sunset": "8:28 pm",
    "leave_sf": "4:28 am",
-   "days_away": 562
+   "days_away": 561
   },
   {
    "curve": [
@@ -3321,7 +3321,7 @@
    "sunrise": "5:48 am",
    "sunset": "8:29 pm",
    "leave_sf": "4:28 am",
-   "days_away": 563
+   "days_away": 562
   },
   {
    "curve": [
@@ -3406,7 +3406,7 @@
    "sunrise": "5:49 am",
    "sunset": "8:34 pm",
    "leave_sf": "4:29 am",
-   "days_away": 577
+   "days_away": 576
   },
   {
    "curve": [
@@ -3491,7 +3491,7 @@
    "sunrise": "5:50 am",
    "sunset": "8:34 pm",
    "leave_sf": "5:13 am",
-   "days_away": 580
+   "days_away": 579
   },
   {
    "curve": [
@@ -3576,7 +3576,7 @@
    "sunrise": "5:55 am",
    "sunset": "8:33 pm",
    "leave_sf": "4:35 am",
-   "days_away": 591
+   "days_away": 590
   },
   {
    "curve": [
@@ -3661,7 +3661,7 @@
    "sunrise": "7:19 am",
    "sunset": "6:30 pm",
    "leave_sf": "2:05 pm",
-   "days_away": 693
+   "days_away": 692
   },
   {
    "curve": [
@@ -3746,7 +3746,7 @@
    "sunrise": "7:20 am",
    "sunset": "6:28 pm",
    "leave_sf": "2:36 pm",
-   "days_away": 694
+   "days_away": 693
   },
   {
    "curve": [
@@ -3823,7 +3823,7 @@
    "sunrise": "6:48 am",
    "sunset": "5 pm",
    "leave_sf": "12:02 pm",
-   "days_away": 721
+   "days_away": 720
   },
   {
    "curve": [
@@ -3900,7 +3900,7 @@
    "sunrise": "6:49 am",
    "sunset": "4:59 pm",
    "leave_sf": "12:30 pm",
-   "days_away": 722
+   "days_away": 721
   },
   {
    "curve": [
@@ -3977,7 +3977,7 @@
    "sunrise": "7:16 am",
    "sunset": "4:52 pm",
    "leave_sf": "11:41 am",
-   "days_away": 750
+   "days_away": 749
   },
   {
    "curve": [
@@ -4054,7 +4054,7 @@
    "sunrise": "7:16 am",
    "sunset": "4:52 pm",
    "leave_sf": "12:18 pm",
-   "days_away": 751
+   "days_away": 750
   },
   {
    "curve": [
@@ -4131,7 +4131,7 @@
    "sunrise": "7:23 am",
    "sunset": "5:09 pm",
    "leave_sf": "11:42 am",
-   "days_away": 779
+   "days_away": 778
   },
   {
    "curve": [
@@ -4208,7 +4208,7 @@
    "sunrise": "7:23 am",
    "sunset": "5:10 pm",
    "leave_sf": "12:23 pm",
-   "days_away": 780
+   "days_away": 779
   },
   {
    "curve": [
@@ -4285,7 +4285,7 @@
    "sunrise": "7:15 am",
    "sunset": "5:28 pm",
    "leave_sf": "1:23 pm",
-   "days_away": 797
+   "days_away": 796
   },
   {
    "curve": [
@@ -4370,7 +4370,7 @@
    "sunrise": "6:55 am",
    "sunset": "7:32 pm",
    "leave_sf": "5:35 am",
-   "days_away": 860
+   "days_away": 859
   },
   {
    "curve": [
@@ -4455,7 +4455,7 @@
    "sunrise": "6:16 am",
    "sunset": "7:57 pm",
    "leave_sf": "4:56 am",
-   "days_away": 888
+   "days_away": 887
   },
   {
    "curve": [
@@ -4540,7 +4540,7 @@
    "sunrise": "6:15 am",
    "sunset": "7:57 pm",
    "leave_sf": "4:55 am",
-   "days_away": 889
+   "days_away": 888
   },
   {
    "curve": [
@@ -4625,7 +4625,7 @@
    "sunrise": "6:14 am",
    "sunset": "7:58 pm",
    "leave_sf": "5:36 am",
-   "days_away": 890
+   "days_away": 889
   },
   {
    "curve": [
@@ -4710,7 +4710,7 @@
    "sunrise": "6:02 am",
    "sunset": "8:09 pm",
    "leave_sf": "4:42 am",
-   "days_away": 902
+   "days_away": 901
   },
   {
    "curve": [
@@ -4795,7 +4795,7 @@
    "sunrise": "6:01 am",
    "sunset": "8:10 pm",
    "leave_sf": "4:41 am",
-   "days_away": 903
+   "days_away": 902
   },
   {
    "curve": [
@@ -4880,7 +4880,7 @@
    "sunrise": "5:52 am",
    "sunset": "8:20 pm",
    "leave_sf": "4:32 am",
-   "days_away": 916
+   "days_away": 915
   },
   {
    "curve": [
@@ -4965,7 +4965,7 @@
    "sunrise": "5:51 am",
    "sunset": "8:21 pm",
    "leave_sf": "4:31 am",
-   "days_away": 917
+   "days_away": 916
   },
   {
    "curve": [
@@ -5050,7 +5050,7 @@
    "sunrise": "5:51 am",
    "sunset": "8:22 pm",
    "leave_sf": "4:31 am",
-   "days_away": 918
+   "days_away": 917
   },
   {
    "curve": [
@@ -5135,7 +5135,7 @@
    "sunrise": "5:50 am",
    "sunset": "8:23 pm",
    "leave_sf": "5:11 am",
-   "days_away": 919
+   "days_away": 918
   },
   {
    "curve": [
@@ -5220,7 +5220,7 @@
    "sunrise": "5:48 am",
    "sunset": "8:30 pm",
    "leave_sf": "4:28 am",
-   "days_away": 931
+   "days_away": 930
   },
   {
    "curve": [
@@ -5305,7 +5305,7 @@
    "sunrise": "5:48 am",
    "sunset": "8:30 pm",
    "leave_sf": "4:28 am",
-   "days_away": 932
+   "days_away": 931
   },
   {
    "curve": [
@@ -5390,7 +5390,7 @@
    "sunrise": "5:47 am",
    "sunset": "8:31 pm",
    "leave_sf": "4:27 am",
-   "days_away": 933
+   "days_away": 932
   },
   {
    "curve": [
@@ -5475,7 +5475,7 @@
    "sunrise": "5:48 am",
    "sunset": "8:31 pm",
    "leave_sf": "4:46 am",
-   "days_away": 934
+   "days_away": 933
   },
   {
    "curve": [
@@ -5560,7 +5560,7 @@
    "sunrise": "5:50 am",
    "sunset": "8:34 pm",
    "leave_sf": "4:30 am",
-   "days_away": 946
+   "days_away": 945
   },
   {
    "curve": [
@@ -5645,7 +5645,7 @@
    "sunrise": "5:50 am",
    "sunset": "8:34 pm",
    "leave_sf": "4:30 am",
-   "days_away": 947
+   "days_away": 946
   },
   {
    "curve": [
@@ -5730,7 +5730,7 @@
    "sunrise": "5:57 am",
    "sunset": "8:32 pm",
    "leave_sf": "4:37 am",
-   "days_away": 961
+   "days_away": 960
   },
   {
    "curve": [
@@ -5815,7 +5815,7 @@
    "sunrise": "5:58 am",
    "sunset": "8:31 pm",
    "leave_sf": "4:38 am",
-   "days_away": 962
+   "days_away": 961
   },
   {
    "curve": [
@@ -5908,7 +5908,7 @@
    "sunrise": "7:10 am",
    "sunset": "6:44 pm",
    "leave_sf": "3:02 pm",
-   "days_away": 1049
+   "days_away": 1048
   },
   {
    "curve": [
@@ -5985,7 +5985,7 @@
    "sunrise": "6:37 am",
    "sunset": "5:09 pm",
    "leave_sf": "12:39 pm",
-   "days_away": 1077
+   "days_away": 1076
   },
   {
    "curve": [
@@ -6062,7 +6062,7 @@
    "sunrise": "7:07 am",
    "sunset": "4:52 pm",
    "leave_sf": "11:46 am",
-   "days_away": 1105
+   "days_away": 1104
   },
   {
    "curve": [
@@ -6139,7 +6139,7 @@
    "sunrise": "7:08 am",
    "sunset": "4:52 pm",
    "leave_sf": "12:19 pm",
-   "days_away": 1106
+   "days_away": 1105
   },
   {
    "curve": [
@@ -6216,7 +6216,7 @@
    "sunrise": "7:23 am",
    "sunset": "5:01 pm",
    "leave_sf": "11:37 am",
-   "days_away": 1134
+   "days_away": 1133
   },
   {
    "curve": [
@@ -6293,7 +6293,7 @@
    "sunrise": "7:24 am",
    "sunset": "5:02 pm",
    "leave_sf": "12:15 pm",
-   "days_away": 1135
+   "days_away": 1134
   },
   {
    "curve": [
@@ -6370,7 +6370,7 @@
    "sunrise": "7:24 am",
    "sunset": "5:02 pm",
    "leave_sf": "1 pm",
-   "days_away": 1136
+   "days_away": 1135
   },
   {
    "curve": [
@@ -6447,7 +6447,7 @@
    "sunrise": "7:15 am",
    "sunset": "5:29 pm",
    "leave_sf": "11:38 am",
-   "days_away": 1163
+   "days_away": 1162
   },
   {
    "curve": [
@@ -6532,7 +6532,7 @@
    "sunrise": "7:14 am",
    "sunset": "5:31 pm",
    "leave_sf": "12:20 pm",
-   "days_away": 1164
+   "days_away": 1163
   },
   {
    "curve": [
@@ -6617,7 +6617,7 @@
    "sunrise": "7:13 am",
    "sunset": "5:32 pm",
    "leave_sf": "1:05 pm",
-   "days_away": 1165
+   "days_away": 1164
   },
   {
    "curve": [
@@ -6702,7 +6702,7 @@
    "sunrise": "6:26 am",
    "sunset": "7:49 pm",
    "leave_sf": "5:59 am",
-   "days_away": 1245
+   "days_away": 1244
   },
   {
    "curve": [
@@ -6787,7 +6787,7 @@
    "sunrise": "5:57 am",
    "sunset": "8:14 pm",
    "leave_sf": "4:37 am",
-   "days_away": 1273
+   "days_away": 1272
   },
   {
    "curve": [
@@ -6872,7 +6872,7 @@
    "sunrise": "5:56 am",
    "sunset": "8:15 pm",
    "leave_sf": "5:30 am",
-   "days_away": 1274
+   "days_away": 1273
   },
   {
    "curve": [
@@ -6957,7 +6957,7 @@
    "sunrise": "5:48 am",
    "sunset": "8:32 pm",
    "leave_sf": "4:28 am",
-   "days_away": 1301
+   "days_away": 1300
   },
   {
    "curve": [
@@ -7042,7 +7042,7 @@
    "sunrise": "5:48 am",
    "sunset": "8:32 pm",
    "leave_sf": "4:28 am",
-   "days_away": 1302
+   "days_away": 1301
   },
   {
    "curve": [
@@ -7127,7 +7127,7 @@
    "sunrise": "5:48 am",
    "sunset": "8:33 pm",
    "leave_sf": "5:19 am",
-   "days_away": 1303
+   "days_away": 1302
   },
   {
    "curve": [
@@ -7212,7 +7212,7 @@
    "sunrise": "6 am",
    "sunset": "8:30 pm",
    "leave_sf": "4:40 am",
-   "days_away": 1330
+   "days_away": 1329
   },
   {
    "curve": [
@@ -7297,7 +7297,7 @@
    "sunrise": "6:01 am",
    "sunset": "8:30 pm",
    "leave_sf": "4:41 am",
-   "days_away": 1331
+   "days_away": 1330
   },
   {
    "curve": [
@@ -7374,7 +7374,7 @@
    "sunrise": "7:21 am",
    "sunset": "4:55 pm",
    "leave_sf": "12:19 pm",
-   "days_away": 1490
+   "days_away": 1489
   },
   {
    "curve": [
@@ -7451,7 +7451,7 @@
    "sunrise": "7:21 am",
    "sunset": "5:18 pm",
    "leave_sf": "11:38 am",
-   "days_away": 1518
+   "days_away": 1517
   },
   {
    "curve": [
@@ -7528,7 +7528,7 @@
    "sunrise": "7:20 am",
    "sunset": "5:19 pm",
    "leave_sf": "12:17 pm",
-   "days_away": 1519
+   "days_away": 1518
   },
   {
    "curve": [
@@ -7605,7 +7605,7 @@
    "sunrise": "7:20 am",
    "sunset": "5:21 pm",
    "leave_sf": "1:02 pm",
-   "days_away": 1520
+   "days_away": 1519
   },
   {
    "curve": [
@@ -7690,7 +7690,7 @@
    "sunrise": "6:55 am",
    "sunset": "5:52 pm",
    "leave_sf": "12:21 pm",
-   "days_away": 1548
+   "days_away": 1547
   }
  ],
  "saturdays": [
@@ -7705,7 +7705,7 @@
    "sunset": "5:53 pm",
    "sunset_h": 17.88,
    "minutes_before_sunset": 88,
-   "days_away": 88,
+   "days_away": 87,
    "sunday": false,
    "curve": [
     [
@@ -7793,7 +7793,7 @@
    "sunset": "5:02 pm",
    "sunset_h": 17.03,
    "minutes_before_sunset": 51,
-   "days_away": 354,
+   "days_away": 353,
    "sunday": false,
    "curve": [
     [
@@ -7877,7 +7877,7 @@
    "sunset": "4:54 pm",
    "sunset_h": 16.9,
    "minutes_before_sunset": 33,
-   "days_away": 368,
+   "days_away": 367,
    "sunday": false,
    "curve": [
     [
@@ -7957,7 +7957,7 @@
    "sunset": "4:52 pm",
    "sunset_h": 16.87,
    "minutes_before_sunset": 97,
-   "days_away": 382,
+   "days_away": 381,
    "sunday": false,
    "curve": [
     [
@@ -8037,7 +8037,7 @@
    "sunset": "4:56 pm",
    "sunset_h": 16.93,
    "minutes_before_sunset": 87,
-   "days_away": 396,
+   "days_away": 395,
    "sunday": false,
    "curve": [
     [
@@ -8117,7 +8117,7 @@
    "sunset": "5 pm",
    "sunset_h": 17.0,
    "minutes_before_sunset": 49,
-   "days_away": 767,
+   "days_away": 766,
    "sunday": false,
    "curve": [
     [
@@ -8201,7 +8201,7 @@
    "sunset": "5:11 pm",
    "sunset_h": 17.18,
    "minutes_before_sunset": 60,
-   "days_away": 781,
+   "days_away": 780,
    "sunday": false,
    "curve": [
     [
@@ -8285,7 +8285,7 @@
    "sunset": "5:33 pm",
    "sunset_h": 17.55,
    "minutes_before_sunset": 48,
-   "days_away": 1166,
+   "days_away": 1165,
    "sunday": false,
    "curve": [
     [
@@ -8373,7 +8373,7 @@
    "sunset": "6:19 pm",
    "sunset_h": 18.32,
    "minutes_before_sunset": 71,
-   "days_away": 1432,
+   "days_away": 1431,
    "sunday": false,
    "curve": [
     [
@@ -8465,7 +8465,7 @@
    "sunset": "4:55 pm",
    "sunset_h": 16.92,
    "minutes_before_sunset": 105,
-   "days_away": 1460,
+   "days_away": 1459,
    "sunday": false,
    "curve": [
     [
@@ -8547,7 +8547,7 @@
    "sunset": "4:52 pm",
    "sunset_h": 16.87,
    "minutes_before_sunset": 128,
-   "days_away": 11,
+   "days_away": 10,
    "sunday": false,
    "below_zero": "1:46 pm",
    "below_zero_h": 13.77,
@@ -8565,7 +8565,7 @@
    "sunset": "4:54 pm",
    "sunset_h": 16.9,
    "minutes_before_sunset": 176,
-   "days_away": 26,
+   "days_away": 25,
    "sunday": true,
    "below_zero": "12:51 pm",
    "below_zero_h": 12.85,
@@ -8583,7 +8583,7 @@
    "sunset": "5:02 pm",
    "sunset_h": 17.03,
    "minutes_before_sunset": 154,
-   "days_away": 40,
+   "days_away": 39,
    "sunday": true,
    "below_zero": "1:38 pm",
    "below_zero_h": 13.63,
@@ -8601,7 +8601,7 @@
    "sunset": "5:37 pm",
    "sunset_h": 17.62,
    "minutes_before_sunset": 41,
-   "days_away": 74,
+   "days_away": 73,
    "sunday": false,
    "below_zero": "4:04 pm",
    "below_zero_h": 16.07,
@@ -8619,7 +8619,7 @@
    "sunset": "7:20 pm",
    "sunset_h": 19.33,
    "minutes_before_sunset": 187,
-   "days_away": 116,
+   "days_away": 115,
    "sunday": false,
    "below_zero": "3:21 pm",
    "below_zero_h": 15.35,
@@ -8637,7 +8637,7 @@
    "sunset": "5:07 pm",
    "sunset_h": 17.12,
    "minutes_before_sunset": 175,
-   "days_away": 410,
+   "days_away": 409,
    "sunday": false,
    "below_zero": "1:02 pm",
    "below_zero_h": 13.03,
@@ -8655,7 +8655,7 @@
    "sunset": "5:21 pm",
    "sunset_h": 17.35,
    "minutes_before_sunset": 165,
-   "days_away": 424,
+   "days_away": 423,
    "sunday": false,
    "below_zero": "1:22 pm",
    "below_zero_h": 13.37,
@@ -8673,7 +8673,7 @@
    "sunset": "5:37 pm",
    "sunset_h": 17.62,
    "minutes_before_sunset": 230,
-   "days_away": 439,
+   "days_away": 438,
    "sunday": true,
    "below_zero": "12:39 pm",
    "below_zero_h": 12.65,
@@ -8691,7 +8691,7 @@
    "sunset": "5:53 pm",
    "sunset_h": 17.88,
    "minutes_before_sunset": 221,
-   "days_away": 453,
+   "days_away": 452,
    "sunday": true,
    "below_zero": "1:53 pm",
    "below_zero_h": 13.88,
@@ -8709,7 +8709,7 @@
    "sunset": "5:26 pm",
    "sunset_h": 17.43,
    "minutes_before_sunset": 141,
-   "days_away": 795,
+   "days_away": 794,
    "sunday": false,
    "below_zero": "1:41 pm",
    "below_zero_h": 13.68,
@@ -8727,7 +8727,7 @@
    "sunset": "5:42 pm",
    "sunset_h": 17.7,
    "minutes_before_sunset": 150,
-   "days_away": 809,
+   "days_away": 808,
    "sunday": false,
    "below_zero": "1:55 pm",
    "below_zero_h": 13.92,
@@ -8745,7 +8745,7 @@
    "sunset": "5:57 pm",
    "sunset_h": 17.95,
    "minutes_before_sunset": 243,
-   "days_away": 823,
+   "days_away": 822,
    "sunday": false,
    "below_zero": "1:21 pm",
    "below_zero_h": 13.35,
@@ -8765,7 +8765,7 @@
    "sunset": "4:57 pm",
    "sunset_h": 16.95,
    "minutes_before_sunset": -108,
-   "days_away": 32,
+   "days_away": 31,
    "sunday": false,
    "why": "after dark"
   },
@@ -8780,7 +8780,7 @@
    "sunset": "5:22 pm",
    "sunset_h": 17.37,
    "minutes_before_sunset": -12,
-   "days_away": 60,
+   "days_away": 59,
    "sunday": false,
    "why": "after dark"
   },
@@ -8795,7 +8795,7 @@
    "sunset": "8:34 pm",
    "sunset_h": 20.57,
    "minutes_before_sunset": 934,
-   "days_away": 221,
+   "days_away": 220,
    "sunday": false,
    "why": "before sunrise"
   },
@@ -8810,7 +8810,7 @@
    "sunset": "8:20 pm",
    "sunset_h": 20.33,
    "minutes_before_sunset": 984,
-   "days_away": 249,
+   "days_away": 248,
    "sunday": false,
    "why": "before sunrise"
   },
@@ -8825,7 +8825,7 @@
    "sunset": "6:15 pm",
    "sunset_h": 18.25,
    "minutes_before_sunset": 0,
-   "days_away": 340,
+   "days_away": 339,
    "sunday": false,
    "why": "right at sunset"
   },
@@ -8840,7 +8840,7 @@
    "sunset": "8:26 pm",
    "sunset_h": 20.43,
    "minutes_before_sunset": 885,
-   "days_away": 606,
+   "days_away": 605,
    "sunday": false,
    "why": "before sunrise"
   },
@@ -8855,7 +8855,7 @@
    "sunset": "4:57 pm",
    "sunset_h": 16.95,
    "minutes_before_sunset": -74,
-   "days_away": 725,
+   "days_away": 724,
    "sunday": false,
    "why": "after dark"
   },
@@ -8870,7 +8870,7 @@
    "sunset": "4:53 pm",
    "sunset_h": 16.88,
    "minutes_before_sunset": -12,
-   "days_away": 753,
+   "days_away": 752,
    "sunday": false,
    "why": "after dark"
   }
@@ -8885,7 +8885,7 @@
    "low_time": "7 am",
    "low_h": 7.0,
    "sunrise": "6:07 am",
-   "days_away": 165,
+   "days_away": 164,
    "sunrise_h": 6.12,
    "curve": [
     [
@@ -8987,7 +8987,7 @@
    "low_time": "7:01 am",
    "low_h": 7.02,
    "sunrise": "5:55 am",
-   "days_away": 179,
+   "days_away": 178,
    "sunrise_h": 5.92,
    "curve": [
     [
@@ -9089,7 +9089,7 @@
    "low_time": "6:01 am",
    "low_h": 6.02,
    "sunrise": "5:49 am",
-   "days_away": 193,
+   "days_away": 192,
    "sunrise_h": 5.82,
    "curve": [
     [
@@ -9191,7 +9191,7 @@
    "low_time": "6:05 am",
    "low_h": 6.08,
    "sunrise": "5:48 am",
-   "days_away": 207,
+   "days_away": 206,
    "sunrise_h": 5.8,
    "curve": [
     [
@@ -9293,7 +9293,7 @@
    "low_time": "7:50 am",
    "low_h": 7.83,
    "sunrise": "5:52 am",
-   "days_away": 550,
+   "days_away": 549,
    "sunrise_h": 5.87,
    "curve": [
     [
@@ -9395,7 +9395,7 @@
    "low_time": "7:52 am",
    "low_h": 7.87,
    "sunrise": "5:48 am",
-   "days_away": 564,
+   "days_away": 563,
    "sunrise_h": 5.8,
    "curve": [
     [
@@ -9497,7 +9497,7 @@
    "low_time": "6:49 am",
    "low_h": 6.82,
    "sunrise": "5:49 am",
-   "days_away": 578,
+   "days_away": 577,
    "sunrise_h": 5.82,
    "curve": [
     [
@@ -9599,7 +9599,7 @@
    "low_time": "6:23 am",
    "low_h": 6.38,
    "sunrise": "6:06 am",
-   "days_away": 607,
+   "days_away": 606,
    "sunrise_h": 6.1,
    "curve": [
     [
@@ -9701,7 +9701,7 @@
    "low_time": "9:40 am",
    "low_h": 9.67,
    "sunrise": "5:58 am",
-   "days_away": 907,
+   "days_away": 906,
    "sunrise_h": 5.97,
    "curve": [
     [
@@ -9803,7 +9803,7 @@
    "low_time": "8:25 am",
    "low_h": 8.42,
    "sunrise": "5:48 am",
-   "days_away": 935,
+   "days_away": 934,
    "sunrise_h": 5.8,
    "curve": [
     [
@@ -9905,7 +9905,7 @@
    "low_time": "8:31 am",
    "low_h": 8.52,
    "sunrise": "5:51 am",
-   "days_away": 949,
+   "days_away": 948,
    "sunrise_h": 5.85,
    "curve": [
     [
@@ -10007,7 +10007,7 @@
    "low_time": "7:19 am",
    "low_h": 7.32,
    "sunrise": "5:59 am",
-   "days_away": 963,
+   "days_away": 962,
    "sunrise_h": 5.98,
    "curve": [
     [
@@ -10109,7 +10109,7 @@
    "low_time": "6:47 am",
    "low_h": 6.78,
    "sunrise": "6:12 am",
-   "days_away": 1257,
+   "days_away": 1256,
    "sunrise_h": 6.2,
    "curve": [
     [
@@ -10211,7 +10211,7 @@
    "low_time": "6:11 am",
    "low_h": 6.18,
    "sunrise": "5:58 am",
-   "days_away": 1271,
+   "days_away": 1270,
    "sunrise_h": 5.97,
    "curve": [
     [
@@ -10313,7 +10313,7 @@
    "low_time": "5:53 am",
    "low_h": 5.88,
    "sunrise": "5:50 am",
-   "days_away": 1285,
+   "days_away": 1284,
    "sunrise_h": 5.83,
    "curve": [
     [
@@ -10415,7 +10415,7 @@
    "low_time": "5:59 am",
    "low_h": 5.98,
    "sunrise": "5:48 am",
-   "days_away": 1300,
+   "days_away": 1299,
    "sunrise_h": 5.8,
    "curve": [
     [
